@@ -1,3 +1,7 @@
+> **Historical document.** This is the plan the book was built from (August 2026).
+> The shipped book supersedes it where they differ;
+> the living indexes are `TRACES.md` and `labs/README.md`.
+
 # Plan — Agentic Engineering Worksheet
 
 ## Context

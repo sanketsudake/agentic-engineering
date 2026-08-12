@@ -7,7 +7,9 @@ build agents end to end,
 operate coding agents well,
 and prove it against labs and per-level exams.
 
-Work in progress. The PDF builds from `chapters/` — see [CONTRIBUTING.md](CONTRIBUTING.md).
+**[Download the PDF](https://github.com/sanketsudake/agentic-engineering/releases/latest)** —
+two editions: the full book, and a candidate edition with model answers stripped for self-testing.
+Labs and exam practicals run offline with zero API keys: `cd labs/lab03-tool-loop && uv sync && uv run pytest`.
 
 ## Chapters
 
