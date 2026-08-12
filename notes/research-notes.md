@@ -115,7 +115,8 @@ Claude Code is the book's worked example; these facts back Chapter 7-8 traces.
   persistence is a graph feature, not a chat feature.
   Source: langchain-ai/langgraph docs (libs/checkpoint README, graph examples); verified 2026-08-12.
 - **Lab-pinned framework versions** (authoritative pins live in each lab's `uv.lock`):
-  lab07 pins langgraph 1.2.11, langgraph-checkpoint-sqlite 3.1.1, langchain-core 1.5.4 (verified 2026-08-12).
+  lab07 pins langgraph 1.2.11, langgraph-checkpoint-sqlite 3.1.1, langchain-core 1.5.4 (verified 2026-08-12);
+  lab06 pins openai-agents 0.20.0 (openai 2.54.0) — sharp edge: the SDK defaults to the Responses API; point it at chat completions via `set_default_openai_api("chat_completions")` when mocking by base_url (verified 2026-08-12).
   Sharp edge: `SqliteSaver.from_conn_string` is a context manager; construct `SqliteSaver(sqlite3.connect(...))` directly when the checkpointer must outlive a block.
 
 ## Pricing snapshot
