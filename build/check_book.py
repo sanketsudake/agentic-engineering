@@ -23,7 +23,7 @@ BUDGETS = {  # words, fenced blocks excluded (see STYLE.md)
     "ch05.md": 2650, "ch06.md": 3300, "ch07.md": 4150, "ch08.md": 3450,
     "ch09.md": 3200, "ch10.md": 3650, "ch11.md": 3250, "ch12.md": 3900,
     "ch13.md": 3450, "ch14.md": 3200,
-    "appendices.md": 5150,
+    "appendices.md": 6150,
 }
 TIER_RANGES = {  # (min, max) questions per tier
     "core": {"Tier 1": (3, 4), "Tier 2": (3, 4), "Tier 3": (2, 3)},
@@ -331,7 +331,7 @@ def check_appendix_toc():
         return
     heads = re.findall(r"^## (Appendix ([A-Z]))", open(p).read(), re.M)
     for full, letter in heads:
-        if letter not in "ABCDEF":
+        if letter not in "ABCDEFG":
             problems.append(f"appendices.md: '{full}' is outside the A–F range build.py indexes")
 
 

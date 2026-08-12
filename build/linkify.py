@@ -86,7 +86,7 @@ def linkify_line(line: str, own_chapter: int | None, refs: dict) -> str:
 
     line = re.sub(LINKED + r"\bChapter (\d+)\b", chapter_sub, line)
     line = re.sub(LINKED + r"\bTrace (\d+)\b", trace_sub, line)
-    line = re.sub(LINKED + r"\bAppendix ([A-F])\b", appendix_sub, line)
+    line = re.sub(LINKED + r"\bAppendix ([A-G])\b", appendix_sub, line)
     return _restore(line, spans)
 
 

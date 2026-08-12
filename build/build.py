@@ -117,7 +117,7 @@ def rewrite_links(html: str) -> str:
                   lambda m: f'href="#chapter-{int(m.group(1))}"', html)
     html = re.sub(r'href="(?:\.\./)*chapters/ch(\d\d)\.md"',
                   lambda m: f'href="#chapter-{int(m.group(1))}"', html)
-    html = re.sub(r'href="(?:\.\./)*(?:chapters/)?appendices\.md#appendix-([a-f])[^"]*"',
+    html = re.sub(r'href="(?:\.\./)*(?:chapters/)?appendices\.md#appendix-([a-g])[^"]*"',
                   lambda m: f'href="#appendix-{m.group(1)}"', html)
     return html
 
@@ -165,9 +165,9 @@ for part_title, files in PARTS:
             r"<blockquote>\s*<p><strong>Lab (\d+) (?:—|&mdash;) (.*?)\.</strong>(.*?)</p>\s*</blockquote>",
             lab_sub, html, flags=re.S)
         if fn == "appendices.md":
-            html = re.sub(r"<h2>(Appendix [A-F][^<]*)</h2>",
+            html = re.sub(r"<h2>(Appendix [A-G][^<]*)</h2>",
                           lambda mm: f'<h2 class="chapter-title appendix" id="{slug(mm.group(1)[:10])}">{mm.group(1)}</h2>', html)
-            for mm in re.finditer(r'id="(appendix-[a-f])">([^<]+)<', html):
+            for mm in re.finditer(r'id="(appendix-[a-g])">([^<]+)<', html):
                 toc_entries.append((0, mm.group(2), mm.group(1)))
             body_parts.append(f'<section class="chapter">{html}</section>')
         else:

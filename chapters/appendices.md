@@ -72,6 +72,24 @@ After a non-idempotent tool times out, its state is unknown; check it before you
 
 Streaming improves only the latency the user feels; the total time does not change ([Chapter 12](ch12.md)).
 
+### Reliability over a loop
+
+An agent multiplies its per-step reliability by itself, once for every step.
+This table is that multiplication. It is the strongest argument in the book for short loops.
+
+| Reliability per step | 5 steps | 10 steps | 20 steps | 50 steps |
+|---|---|---|---|---|
+| 99% | 95% | 90% | 82% | 61% |
+| 95% | 77% | 60% | 36% | 8% |
+| 90% | 59% | 35% | 12% | 1% |
+| 80% | 33% | 11% | 1% | 0% |
+
+Read the 95% row. A step that works nineteen times in twenty finishes a twenty-step task about a third of the time.
+Two levers move that number, and only two.
+Raise the reliability of each step: better tool schemas, surfaced errors, a verification step.
+Or use fewer steps: a shorter loop, a smaller task, code instead of a model where the path is already known.
+A better prompt moves the first lever a little. Removing ten steps moves the second one a lot.
+
 ### Model selection
 
 | Dimension | The question to ask |
@@ -392,3 +410,71 @@ when a link fails, search the title on the named site.
 
 - SWE-bench (search the title) — the benchmark for coding agents; read its task format before you design your own suite ([Chapter 10](ch10.md)).
 - OpenTelemetry generative-AI semantic conventions (search the title) — a neutral telemetry shape for the neutral spine [Chapter 13](ch13.md) asks for.
+
+## Appendix G — The open-source stack, by layer
+
+The rest of this book teaches mechanisms and stays away from product names.
+This appendix is the exception, because an architect must still choose something at each layer.
+It is a map of the layers, not a catalogue.
+The layers are stable. The projects in the last column are not.
+
+**Dated August 2026.** Check the licence and the latest release on the project's own repository before you commit to it.
+Treat the names as a starting shortlist, not a recommendation.
+
+**How to choose inside a layer.** Three questions settle most decisions.
+Does the layer earn its place at all, or can an existing system do the job?
+Does the licence permit what you plan to build (MIT and Apache-2.0 are safe for commercial work; AGPL and SSPL carry obligations when you host the software as a service)?
+Does the project have enough users that your error message is already answered somewhere?
+Adoption beats features. A weaker project with ten times the users costs less of your time.
+
+### The model layer
+
+| Layer | What you choose | Judge it on | Open options today |
+|---|---|---|---|
+| Open weights | the model you run yourself | licence, tool-use quality, sizes offered | Llama family, Qwen3, DeepSeek, gpt-oss |
+| Serving engine | how weights become an API | throughput, prefix caching, batching | vLLM, SGLang |
+| Local runtime | a model on your own machine | setup cost, quantisation, hardware reach | Ollama, llama.cpp |
+| Gateway | one API in front of many providers | key management, cost control, fallback | LiteLLM |
+
+A gateway is the layer that makes the routing and fallback of [Chapter 12](ch12.md) possible without a rewrite.
+
+### The agent layer
+
+| Layer | What you choose | Judge it on | Open options today |
+|---|---|---|---|
+| Agent framework | who owns the loop | control over state, resumability, escape cost | LangGraph, CrewAI, Microsoft Agent Framework, LlamaIndex |
+| Coding-agent harness | the runtime of [Chapter 7](ch07.md) | permission model, hooks, repository awareness | OpenHands, Aider, Cline |
+| Tool protocol | how tools reach the agent | transport, discovery, auth | Model Context Protocol, with SDKs and FastMCP |
+| Sandbox | the blast radius of [Chapter 4](ch04.md) | isolation strength, start time, filesystem control | E2B, Firecracker, gVisor |
+
+### The knowledge layer
+
+| Layer | What you choose | Judge it on | Open options today |
+|---|---|---|---|
+| Vector store | recall over your corpus | filtering, hybrid search, operational cost | Qdrant, pgvector, Milvus, Chroma |
+| Ingest and parsing | what a document becomes | table and layout fidelity, OCR quality | Docling, Unstructured, Marker |
+| Memory layer | what survives a session | write policy, conflict handling, storage | Mem0, Letta, Graphiti, LangGraph checkpointers |
+
+Choose `pgvector` when the vectors belong beside business data you already run in Postgres.
+That decision removes a whole system from the diagram, which is worth more than a benchmark.
+
+### The operations layer
+
+| Layer | What you choose | Judge it on | Open options today |
+|---|---|---|---|
+| Tracing | whether you can see the loop | span model, transcript replay, retention | Langfuse, Arize Phoenix, OpenLLMetry |
+| Eval framework | how a change is judged | grader types, CI fit, dataset handling | Ragas, DeepEval, Promptfoo, Inspect AI |
+| Guardrails | what a policy can stop | rule expressiveness, latency, PII handling | NeMo Guardrails, Guardrails AI, LLM Guard, Presidio |
+| Red teaming | what an attacker finds first | attack coverage, reporting | garak, PyRIT |
+| Durable execution | what happens after a crash | retries, resumability, scheduling | Temporal, Ray |
+
+Wire tracing before you wire features. You cannot debug what you cannot see, and every agent defect is a transcript that nobody has read yet ([Trace 32](ch12.md#trace-32-what-happens-when-a-bad-session-is-traced)).
+
+### You need fewer layers than this table implies
+
+A first production agent often needs four: a hosted model, a tool protocol, tracing, and an eval suite.
+Every other layer is a decision you can defer until a real limit forces it.
+Adopt a layer when you can name the limit it removes.
+That test is the whole of [Chapter 13](ch13.md)'s build-versus-buy argument, applied one row at a time.
+
+*The projects named above were shortlisted from the* Open Source Toolkit for Building AI Agents 2026, *compiled by Avinash Singh (Let's Code), August 2026. The selection there is that author's work; the judgements in this appendix are ours.*

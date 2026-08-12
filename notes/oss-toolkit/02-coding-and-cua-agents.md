@@ -1,0 +1,28 @@
+# 02 Coding and CUA Agents
+
+> Agents that write code and drive real computers. The fastest growing category of 2026.
+
+| Tool | Sub-Category | What It Does | Best Use Case | Language | License | Difficulty | Adoption | Link |
+|---|---|---|---|---|---|---|---|---|
+| OpenHands | Coding agent | Full software development agent that reads repos, edits files, runs commands and browses | Autonomous issue to pull request workflows | Python, TS | MIT | Intermediate | Very High | https://github.com/All-Hands-AI/OpenHands |
+| Aider | Coding agent | Terminal pair programmer with strong git integration and repo maps | Editing an existing codebase from the command line | Python | Apache-2.0 | Beginner | Very High | https://github.com/Aider-AI/aider |
+| Cline | IDE agent | VS Code extension that plans, edits, runs terminal commands and uses MCP servers | Agentic coding inside VS Code with full diff approval | TypeScript | Apache-2.0 | Beginner | Very High | https://github.com/cline/cline |
+| Roo Code | IDE agent | Cline fork with custom modes, per mode models and heavy configurability | Teams that want specialised architect, coder and reviewer modes | TypeScript | Apache-2.0 | Beginner | High | https://github.com/RooCodeInc/Roo-Code |
+| Kilo Code | IDE agent | Merges Cline and Roo features with an orchestrator mode and provider marketplace | One extension instead of juggling three | TypeScript | Apache-2.0 | Beginner | High | https://github.com/Kilo-Org/kilocode |
+| Continue | IDE agent | Open source autopilot for VS Code and JetBrains with custom assistants and rules | Bring your own model coding assistant inside JetBrains | TypeScript | Apache-2.0 | Beginner | Very High | https://github.com/continuedev/continue |
+| OpenAI Codex CLI | Coding agent | Local terminal coding agent from OpenAI with sandboxed execution | Terminal first workflows with approval modes | Rust, TS | Apache-2.0 | Beginner | Very High | https://github.com/openai/codex |
+| Gemini CLI | Coding agent | Open source terminal agent with a large context window and built in tools | Free tier heavy usage and large repo understanding | TypeScript | Apache-2.0 | Beginner | Very High | https://github.com/google-gemini/gemini-cli |
+| Qwen Code | Coding agent | Fork of Gemini CLI tuned for Qwen coder models, works fully offline with local weights | Zero API cost coding agent on your own GPU | TypeScript | Apache-2.0 | Intermediate | High | https://github.com/QwenLM/qwen-code |
+| OpenCode | Coding agent | Provider agnostic terminal agent with a client server design and shareable sessions | Running the agent on a server and driving it from a laptop or phone | TypeScript, Go | MIT | Intermediate | High | https://github.com/sst/opencode |
+| goose | Coding agent | Block built extensible on machine agent with recipes and MCP extensions | Automating local dev chores beyond code editing | Rust | Apache-2.0 | Intermediate | High | https://github.com/block/goose |
+| SWE-agent | Research agent | The agent computer interface that put open models on the SWE-bench leaderboard | Studying and reproducing benchmark grade coding agents | Python | MIT | Advanced | High | https://github.com/SWE-agent/SWE-agent |
+| Plandex | Coding agent | Terminal agent built for very large multi file changes with a sandboxed diff review | Refactors that touch dozens of files at once | Go | MIT | Intermediate | Medium | https://github.com/plandex-ai/plandex |
+| Open Interpreter | Code execution | Natural language interface that writes and runs code locally on your machine | Data chores, file conversions and quick local automation | Python | AGPL-3.0 | Beginner | Very High | https://github.com/OpenInterpreter/open-interpreter |
+| GPT Engineer | Scaffolding | Generates a whole codebase from a prompt and asks clarifying questions first | Green field project scaffolds | Python | MIT | Beginner | High | https://github.com/AntonOsika/gpt-engineer |
+| browser-use | Browser agent | Gives an agent structured control of a real browser with DOM extraction and vision fallback | Web tasks like form filling, scraping and portal automation | Python | MIT | Intermediate | Very High | https://github.com/browser-use/browser-use |
+| Stagehand | Browser agent | AI layer on top of Playwright with act, extract and observe primitives | Deterministic Playwright code with AI only where needed | TypeScript | MIT | Intermediate | High | https://github.com/browserbase/stagehand |
+| Skyvern | Browser agent | Vision plus DOM agent that automates workflows across sites without brittle selectors | Repetitive multi site business workflows | Python | AGPL-3.0 | Intermediate | High | https://github.com/Skyvern-AI/skyvern |
+| Playwright | Browser control | The underlying cross browser automation library nearly every browser agent builds on | The reliable execution layer under any web agent | TypeScript | Apache-2.0 | Beginner | Very High | https://github.com/microsoft/playwright |
+| Midscene | Browser agent | Natural language UI automation for web and Android with a visual replay report | Debugging why a UI agent clicked the wrong thing | TypeScript | MIT | Intermediate | Medium | https://github.com/web-infra-dev/midscene |
+| UI-TARS | CUA model | Open GUI agent model family that takes screenshots and outputs mouse and keyboard actions | Native computer use without a DOM, including desktop apps | Python | Apache-2.0 | Advanced | High | https://github.com/bytedance/UI-TARS |
+| Self-Operating Computer | CUA | Reference framework that lets a multimodal model drive your whole desktop | Learning how screenshot to action loops work | Python | MIT | Intermediate | Medium | https://github.com/OthersideAI/self-operating-computer |
