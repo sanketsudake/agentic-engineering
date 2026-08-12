@@ -10,7 +10,7 @@ Requires: python packages in requirements.txt, mermaid-cli (mmdc) on PATH,
 and a Chromium/Chrome for mermaid rendering (set CHROME_PATH to point at a
 specific binary; otherwise mermaid-cli uses its own bundled browser).
 """
-import hashlib, json, os, re, shutil, subprocess, sys
+import hashlib, json, os, re, shutil, subprocess, sys, time
 import markdown
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repo root
@@ -64,11 +64,20 @@ def render_mermaid(code: str) -> str:
         src = os.path.join(DIA, f"{h}.mmd")
         with open(src, "w") as f:
             f.write(code)
-        r = subprocess.run(
-            ["mmdc", "-i", src, "-o", png, "-b", "white", "-s", "3", "-w", "1000",
-             "-p", PPTR, "-c", MERMAID_CFG, "--quiet"],
-            capture_output=True, text=True)
-        if r.returncode != 0 or not os.path.exists(png):
+        # mermaid-cli drives a headless browser, and that browser sometimes
+        # fails to launch on a cold CI runner. The diagram is fine; the launch
+        # is not. Retry before failing the whole build over a flake.
+        for attempt in range(3):
+            r = subprocess.run(
+                ["mmdc", "-i", src, "-o", png, "-b", "white", "-s", "3", "-w", "1000",
+                 "-p", PPTR, "-c", MERMAID_CFG, "--quiet"],
+                capture_output=True, text=True)
+            if r.returncode == 0 and os.path.exists(png):
+                break
+            if attempt < 2:
+                print(f"mermaid retry {attempt + 1}/2 for {h}", file=sys.stderr)
+                time.sleep(3 * (attempt + 1))
+        else:
             print(f"MERMAID FAIL {h}: {r.stderr[-600:]}", file=sys.stderr)
             return None
     return png
