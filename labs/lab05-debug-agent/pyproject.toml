@@ -1,0 +1,20 @@
+[project]
+name = "lab05-debug-agent"
+version = "0.1.0"
+description = "Lab 5 — debug a broken agent loop"
+requires-python = ">=3.10"
+dependencies = [
+    "worksheet-common",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.uv.sources]
+worksheet-common = { path = "../common", editable = true }
+
+[tool.pytest.ini_options]
+addopts = "-m 'not live'"
+markers = ["live: needs a real model API key; deselected by default"]
+testpaths = ["tests"]
+pythonpath = ["."]
