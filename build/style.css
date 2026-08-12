@@ -35,7 +35,9 @@ ul.toc { list-style: none; padding: 0; margin: 0 0 8mm 0; }
 .toc.flows { column-count: 1; }
 
 /* ---- part pages ---- */
-.part-page { page-break-before: always; display: flex; align-items: center; justify-content: center; height: 240mm; }
+/* A part divider clears the running header: without this it keeps showing the
+   previous chapter's title, which reads as if the part belongs to that chapter. */
+.part-page { page-break-before: always; display: flex; align-items: center; justify-content: center; height: 240mm; string-set: chapter ""; }
 .part-title { font: 700 22pt "Liberation Sans"; color: #10243e; border-top: 1.5mm solid #10243e; padding-top: 6mm; max-width: 120mm; }
 
 /* ---- chapters ---- */
