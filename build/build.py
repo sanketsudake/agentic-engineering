@@ -194,7 +194,21 @@ if lab_entries:
 toc_html.append("</div>")
 
 BUILD = os.path.dirname(os.path.abspath(__file__))
-css = open(os.path.join(BUILD, "style.css")).read()
+FONT_DIR = os.path.join(BUILD, "fonts")
+
+# The stylesheet loads vendored fonts by absolute path. A missing file makes
+# WeasyPrint fall back silently, so the PDF renders in some other typeface and
+# nothing says so — fail loudly instead.
+REQUIRED_FONTS = ["IBMPlexSerif-Regular.ttf", "IBMPlexSerif-Italic.ttf",
+                  "IBMPlexSerif-SemiBold.ttf", "IBMPlexSans-VF.ttf",
+                  "IBMPlexSans-Italic-VF.ttf", "IBMPlexMono-Regular.ttf",
+                  "IBMPlexMono-SemiBold.ttf"]
+missing = [f for f in REQUIRED_FONTS if not os.path.exists(os.path.join(FONT_DIR, f))]
+if missing:
+    print(f"FONTS MISSING from build/fonts: {', '.join(missing)}", file=sys.stderr)
+    sys.exit(1)
+
+css = open(os.path.join(BUILD, "style.css")).read().replace("{{FONT_DIR}}", FONT_DIR)
 cover = open(os.path.join(BUILD, "cover.html")).read()
 
 doc = f"""<!DOCTYPE html><html><head><meta charset="utf-8"><style>{css}</style></head><body>

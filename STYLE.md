@@ -132,12 +132,12 @@ Flowcharts and state diagrams carry a small semantic palette, so role reads at a
 
 | Class | Use for | Fill | Stroke |
 |---|---|---|---|
-| `leader` | the component driving the loop (orchestrator, active agent) | `#10b981` | `#047857` |
-| `standby` | idle worker, queued run, paused session | `#94a3b8` | `#475569` |
-| `lease` | gate, queue, lock, approval, eval gate | `#f59e0b` | `#b45309` |
-| `resource` | the artifact acted on: context window, file, PR, dataset | `#fb7185` | `#be123c` |
-| `external` | provider API, third-party service | `#64748b` | `#334155` |
-| `process` | logic, decision, generic step | `#38bdf8` | `#0369a1` |
+| `leader` | the component driving the loop (orchestrator, active agent) | `#0F766E` | `#115E59` |
+| `standby` | idle worker, queued run, paused session | `#8B8177` | `#6B6259` |
+| `lease` | gate, queue, lock, approval, eval gate | `#D97706` | `#B45309` |
+| `resource` | the artifact acted on: context window, file, PR, dataset | `#BE123C` | `#9F1239` |
+| `external` | provider API, third-party service | `#57534E` | `#44403C` |
+| `process` | logic, decision, generic step | `#0369A1` | `#075985` |
 
 All fills use `color:#fff`. Rules:
 

@@ -1,96 +1,204 @@
-/* ---- page setup ---- */
+/* ============================================================================
+   Agentic Engineering Worksheet — print stylesheet (A4, WeasyPrint)
+
+   Typeface: IBM Plex, vendored under build/fonts and loaded by absolute path.
+   build.py substitutes {{FONT_DIR}}. Vendoring is deliberate: a font resolved
+   from the system renders differently on a laptop and on a CI runner, and the
+   fallback is silent — the PDF just looks wrong.
+
+   Palette: warm neutrals with an orange accent. Colour carries meaning, never
+   decoration: orange marks structure (titles, rules, the trace band), amber
+   marks something the reader must act on (labs), and the page itself stays
+   white so the book prints cheaply and reads at full contrast.
+   ============================================================================ */
+
+@font-face { font-family: "Plex Serif"; src: url("{{FONT_DIR}}/IBMPlexSerif-Regular.ttf"); font-weight: 400; font-style: normal; }
+@font-face { font-family: "Plex Serif"; src: url("{{FONT_DIR}}/IBMPlexSerif-Italic.ttf"); font-weight: 400; font-style: italic; }
+@font-face { font-family: "Plex Serif"; src: url("{{FONT_DIR}}/IBMPlexSerif-SemiBold.ttf"); font-weight: 600; font-style: normal; }
+@font-face { font-family: "Plex Sans"; src: url("{{FONT_DIR}}/IBMPlexSans-VF.ttf"); font-weight: 100 700; font-style: normal; }
+@font-face { font-family: "Plex Sans"; src: url("{{FONT_DIR}}/IBMPlexSans-Italic-VF.ttf"); font-weight: 100 700; font-style: italic; }
+@font-face { font-family: "Plex Mono"; src: url("{{FONT_DIR}}/IBMPlexMono-Regular.ttf"); font-weight: 400; }
+@font-face { font-family: "Plex Mono"; src: url("{{FONT_DIR}}/IBMPlexMono-SemiBold.ttf"); font-weight: 600; }
+
+:root {
+  --ink:        #23180F;   /* body text: warm near-black, full contrast on white */
+  --ink-soft:   #5C4A3A;   /* secondary text */
+  --ink-mute:   #8C7660;   /* captions, page numbers, running head */
+  --brand:      #C2410C;   /* headings and rules */
+  --brand-deep: #7C2D12;   /* the darkest step, for part pages and L3 */
+  --brand-mid:  #EA580C;   /* accents that must catch the eye */
+  --amber:      #B45309;   /* the second signal: labs, questions */
+  --tint:       #FFF4EA;   /* band and callout fill */
+  --tint-soft:  #FFFAF5;   /* code and table zebra */
+  --rule:       #F0DFCE;   /* hairlines */
+  --rule-firm:  #E2C9B0;   /* stronger hairlines */
+}
+
+/* ---- page ---- */
 @page {
   size: A4;
-  margin: 22mm 18mm 20mm 18mm;
-  @bottom-center { content: counter(page); font: 8.5pt "Liberation Sans"; color: #666; }
-  @top-right { content: string(chapter); font: 8pt "Liberation Sans"; color: #888; }
+  margin: 22mm 19mm 19mm 19mm;
+  @bottom-center { content: counter(page); font: 8pt "Plex Sans"; color: #8C7660; }
+  @top-right { content: string(chapter); font: 7.6pt "Plex Sans"; color: #A08A73; letter-spacing: 0.3px; }
 }
 @page cover { margin: 0; @bottom-center { content: none; } @top-right { content: none; } }
 @page :first { @top-right { content: none; } }
 
 html { font-size: 10pt; }
-body { font-family: "DejaVu Serif", serif; line-height: 1.5; color: #1a1a1a; margin: 0; }
+body {
+  font-family: "Plex Serif", serif;
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0;
+  -weasy-hyphens: none;
+}
 
 /* ---- cover ---- */
-.cover { page: cover; height: 297mm; background: #10243e; color: #fff;
-  display: flex; flex-direction: column; justify-content: center; padding: 0 28mm; box-sizing: border-box; }
-.cover .kicker { font: 600 11pt "Liberation Sans"; letter-spacing: 3px; text-transform: uppercase; color: #7eb6ff; margin-bottom: 8mm; }
-.cover h1 { font: 700 30pt "Liberation Sans"; margin: 0 0 6mm 0; line-height: 1.15; }
-.cover .sub { font: 12pt "Liberation Sans"; color: #c9d8ec; line-height: 1.6; max-width: 130mm; }
-.cover .meta { margin-top: 18mm; font: 9.5pt "Liberation Sans"; color: #8fa8c8; }
-.cover .rule { width: 22mm; height: 1.2mm; background: #7eb6ff; margin-bottom: 8mm; }
+.cover {
+  page: cover; height: 297mm; background: var(--tint);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0 26mm; box-sizing: border-box;
+}
+.cover .kicker {
+  font: 600 9.5pt "Plex Sans"; letter-spacing: 3.4px; text-transform: uppercase;
+  color: var(--brand-mid); margin-bottom: 9mm;
+}
+.cover .rule { width: 34mm; height: 1.6mm; background: var(--brand); margin-bottom: 10mm; }
+.cover h1 {
+  font: 600 33pt "Plex Sans"; color: var(--brand-deep);
+  margin: 0 0 8mm 0; line-height: 1.12; letter-spacing: -0.5px;
+}
+.cover .sub {
+  font: 11.5pt "Plex Serif"; color: var(--ink-soft); line-height: 1.65; max-width: 128mm;
+}
+.cover .meta {
+  margin-top: 20mm; font: 500 9pt "Plex Sans"; color: var(--ink-mute); letter-spacing: 0.4px;
+}
 
-/* ---- toc ---- */
+/* ---- contents ---- */
 .toc-page { page-break-before: always; }
-.toc-h { font: 700 16pt "Liberation Sans"; color: #10243e; margin: 0 0 5mm 0; }
-ul.toc { list-style: none; padding: 0; margin: 0 0 8mm 0; }
+.toc-h {
+  font: 600 15pt "Plex Sans"; color: var(--brand-deep); margin: 0 0 4mm 0;
+  letter-spacing: -0.2px;
+}
+.toc-h + ul.toc { border-top: 0.5mm solid var(--brand); padding-top: 3mm; }
+ul.toc { list-style: none; padding: 0; margin: 0 0 9mm 0; }
 .toc li { margin: 0; }
-.toc a { text-decoration: none; color: #1a1a1a; display: flex; align-items: baseline; }
+.toc a { text-decoration: none; color: var(--ink); display: flex; align-items: baseline; }
 .toc .t { order: 1; }
-.toc .pg { order: 2; flex: 1; border-bottom: 1px dotted #bbb; margin: 0 2mm; }
-.toc a::after { content: target-counter(attr(href), page); order: 3; font: 9pt "Liberation Sans"; color: #555; }
-.toc-part { font: 600 10.5pt "Liberation Sans"; margin-top: 3mm !important; }
-.toc-ch { font: 10pt "Liberation Sans"; padding-left: 6mm; line-height: 1.75; }
-.toc-flow { font: 9pt "Liberation Sans"; line-height: 1.7; }
-.toc.flows { column-count: 1; }
+.toc .pg { order: 2; flex: 1; border-bottom: 0.25mm dotted var(--rule-firm); margin: 0 2.5mm; }
+.toc a::after { content: target-counter(attr(href), page); order: 3; font: 8.5pt "Plex Sans"; color: var(--ink-mute); }
+.toc-part { font: 600 10.5pt "Plex Sans"; color: var(--brand); margin-top: 4mm !important; }
+.toc-ch { font: 10pt "Plex Sans"; padding-left: 6mm; line-height: 1.85; }
+.toc-flow { font: 9pt "Plex Sans"; line-height: 1.8; }
+.toc-flow b { color: var(--brand-mid); font-weight: 600; }
 
-/* ---- part pages ---- */
+/* ---- part dividers ---- */
 /* A part divider clears the running header: without this it keeps showing the
    previous chapter's title, which reads as if the part belongs to that chapter. */
-.part-page { page-break-before: always; display: flex; align-items: center; justify-content: center; height: 240mm; string-set: chapter ""; }
-.part-title { font: 700 22pt "Liberation Sans"; color: #10243e; border-top: 1.5mm solid #10243e; padding-top: 6mm; max-width: 120mm; }
+.part-page {
+  page-break-before: always; display: flex; align-items: center; justify-content: center;
+  height: 240mm; string-set: chapter "";
+}
+.part-title {
+  font: 600 24pt "Plex Sans"; color: var(--brand-deep);
+  border-top: 2mm solid var(--brand); padding-top: 7mm; max-width: 120mm;
+  letter-spacing: -0.4px;
+}
 
 /* ---- chapters ---- */
-.chapter { }
-.chapter-title { string-set: chapter content(); page-break-before: always; font: 700 19pt "Liberation Sans";
-  color: #10243e; border-bottom: 0.6mm solid #10243e; padding-bottom: 3mm; margin: 0 0 6mm 0; }
-.chapter-title.appendix { font-size: 16pt; }
-h2 { font: 700 13pt "Liberation Sans"; color: #10243e; margin: 7mm 0 2.5mm 0; page-break-after: avoid; }
-h3 { font: 700 11pt "Liberation Sans"; color: #1a1a1a; margin: 6mm 0 2mm 0; page-break-after: avoid; }
-h3.flow { background: #eef3fa; border-left: 1.6mm solid #2f6db3; padding: 2.2mm 3mm; color: #10243e; }
-p { margin: 0 0 2.8mm 0; }
-li { margin-bottom: 1.2mm; }
-ul, ol { margin: 0 0 3mm 0; padding-left: 6mm; }
-strong { color: #000; }
-hr { border: none; border-top: 0.3mm solid #ccc; margin: 5mm 0; }
+.chapter-title {
+  string-set: chapter content(); page-break-before: always;
+  font: 600 21pt "Plex Sans"; color: var(--brand-deep);
+  border-bottom: 0.7mm solid var(--brand); padding-bottom: 3.5mm; margin: 0 0 7mm 0;
+  letter-spacing: -0.5px; line-height: 1.2;
+}
+.chapter-title.appendix { font-size: 17pt; }
+h2 {
+  font: 600 13pt "Plex Sans"; color: var(--brand); margin: 7mm 0 2.5mm 0;
+  page-break-after: avoid; letter-spacing: -0.2px;
+}
+h3 {
+  font: 600 10.8pt "Plex Sans"; color: var(--ink); margin: 6mm 0 2mm 0;
+  page-break-after: avoid;
+}
+/* the trace band: the book's spine unit, marked so it is findable by flicking */
+h3.flow {
+  background: var(--tint); border-left: 1.8mm solid var(--brand-mid);
+  padding: 2.6mm 3.5mm; color: var(--brand-deep); font-size: 11pt;
+}
+p { margin: 0 0 3mm 0; }
+li { margin-bottom: 1.4mm; }
+ul, ol { margin: 0 0 3.5mm 0; padding-left: 6.5mm; }
+strong { color: #14100B; font-weight: 600; }
+em { font-style: italic; }
+hr { border: none; border-top: 0.3mm solid var(--rule); margin: 6mm 0; }
+a { color: var(--brand); text-decoration: none; }
 
-/* flow step lists: tighter */
-ol li p { margin-bottom: 1mm; }
+/* trace step lists: tighter, so a 15-step trace stays on one page */
+ol li p { margin-bottom: 1.2mm; }
 
 /* ---- figures ---- */
-figure.diagram { margin: 4mm 0 5mm 0; text-align: center; page-break-inside: avoid; }
+figure.diagram { margin: 5mm 0 6mm 0; text-align: center; page-break-inside: avoid; }
 figure.diagram img { max-width: 100%; max-height: 150mm; }
-figure.diagram figcaption { font: italic 8.5pt "Liberation Sans"; color: #555; margin-top: 1.5mm; }
+figure.diagram figcaption {
+  font: italic 8.4pt "Plex Serif"; color: var(--ink-mute); margin-top: 2mm;
+  padding: 0 8mm;
+}
 
 /* ---- code ---- */
-code { font-family: "DejaVu Sans Mono", monospace; font-size: 8.6pt; background: #f2f4f7; padding: 0.2mm 1mm; border-radius: 1mm; }
-pre { background: #f6f8fa; border: 0.3mm solid #dde3ea; border-radius: 1.5mm; padding: 3mm; overflow: hidden;
-  font-size: 8.2pt; line-height: 1.42; margin: 3mm 0 4mm 0; white-space: pre-wrap; }
-pre code { background: none; padding: 0; font-size: 8.2pt; }
+code {
+  font-family: "Plex Mono", monospace; font-size: 8.5pt;
+  background: var(--tint-soft); color: #8A3A0B;
+  padding: 0.2mm 0.8mm; border-radius: 0.8mm;
+}
+pre {
+  background: var(--tint-soft); border: 0.25mm solid var(--rule);
+  border-left: 1.2mm solid var(--rule-firm); border-radius: 1.2mm;
+  padding: 3.2mm 3.5mm; overflow: hidden;
+  font-size: 8.2pt; line-height: 1.45; margin: 3.5mm 0 4.5mm 0; white-space: pre-wrap;
+}
+pre code { background: none; padding: 0; font-size: 8.2pt; color: var(--ink); }
 
-/* ---- tables ---- */
-/* Horizontal hairlines only. A full grid, a dark header block and zebra
+/* ---- tables ----
+   Horizontal hairlines only. A full grid, a dark header block and zebra
    striping are three layers of ink that carry no data; the eye reads rows
    fine from whitespace plus one rule under the header. */
-table { border-collapse: collapse; width: 100%; margin: 3mm 0 4mm 0; font: 8.8pt "Liberation Sans"; }
-th { color: #10243e; text-align: left; padding: 1.4mm 2.5mm 1.2mm 0; font-weight: 700;
-     border-bottom: 0.4mm solid #10243e; }
-td { border: none; border-bottom: 0.18mm solid #d8dee6; padding: 1.3mm 2.5mm 1.3mm 0;
-     vertical-align: top; }
+table {
+  border-collapse: collapse; width: 100%; margin: 3.5mm 0 4.5mm 0;
+  font: 8.8pt "Plex Sans"; page-break-inside: avoid;
+}
+th {
+  color: var(--brand-deep); text-align: left; padding: 1.6mm 2.5mm 1.4mm 0;
+  font-weight: 600; border-bottom: 0.45mm solid var(--brand);
+}
+td {
+  border: none; border-bottom: 0.18mm solid var(--rule);
+  padding: 1.5mm 2.5mm 1.5mm 0; vertical-align: top; line-height: 1.45;
+}
 tr:last-child td { border-bottom: none; }
 th:last-child, td:last-child { padding-right: 0; }
 
 /* ---- questions ---- */
-blockquote { margin: 3mm 0; padding: 2mm 4mm; border-left: 1.2mm solid #c8a24a; background: #fbf7ee; }
+blockquote {
+  margin: 3.5mm 0; padding: 2.4mm 4.5mm;
+  border-left: 1.2mm solid var(--amber); background: var(--tint-soft);
+}
 
-/* ---- level badges ---- */
-.level { font: 700 7pt "Liberation Sans"; color: #fff; border-radius: 1mm;
-  padding: 0.3mm 1.4mm; vertical-align: 0.4mm; }
-.level.l1 { background: #10b981; }
-.level.l2 { background: #38bdf8; }
-.level.l3 { background: #64748b; }
+/* ---- level badges: one warm ramp, so depth reads as depth ---- */
+.level {
+  font: 600 6.8pt "Plex Sans"; color: #fff; border-radius: 1mm;
+  padding: 0.4mm 1.5mm; vertical-align: 0.4mm; letter-spacing: 0.3px;
+}
+.level.l1 { background: #D97706; }
+.level.l2 { background: var(--brand-mid); }
+.level.l3 { background: var(--brand-deep); }
 
-/* ---- lab callouts ---- */
-aside.lab { margin: 3mm 0 4mm 0; padding: 2.2mm 4mm; border-left: 1.6mm solid #10b981;
-  background: #effaf5; page-break-inside: avoid; }
-aside.lab p { margin: 0; font: 9.2pt "Liberation Sans"; }
+/* ---- lab callouts: the one thing that asks the reader to stop and build ---- */
+aside.lab {
+  margin: 4mm 0 4.5mm 0; padding: 2.6mm 4mm;
+  border-left: 1.8mm solid var(--amber); background: var(--tint);
+  border-radius: 0 1.2mm 1.2mm 0; page-break-inside: avoid;
+}
+aside.lab p { margin: 0; font: 9.2pt "Plex Sans"; color: var(--ink); line-height: 1.55; }
+aside.lab strong { color: var(--brand-deep); }
