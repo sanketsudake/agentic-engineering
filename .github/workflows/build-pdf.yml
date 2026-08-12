@@ -24,8 +24,16 @@ jobs:
           node-version: "24"
 
       # Fail fast on content problems before installing heavy deps.
+      - name: Check cross-reference links
+        run: python3 build/linkify.py --check
+
       - name: Check book (stdlib linter)
-        run: python3 build/check_book.py
+        run: |
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            python3 build/check_book.py --strict   # word budgets are hard at release
+          else
+            python3 build/check_book.py
+          fi
 
       - name: Install system deps (weasyprint, fonts)
         run: |

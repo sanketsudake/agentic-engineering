@@ -94,6 +94,24 @@ from strip import strip_answers
 def md2html(text: str) -> str:
     return markdown.markdown(text, extensions=["tables", "fenced_code", "sane_lists", "smarty"])
 
+# ---- cross-reference links: repo-relative on GitHub, internal in the PDF ----
+# Chapters link as "ch03.md" and traces as "ch04.md#trace-9-what-happens-...",
+# which a reader browsing the repository can follow. The PDF is one document,
+# so the same links become "#chapter-3" and "#trace-9" — the ids this file
+# assigns below. Without this rewrite every link in the PDF would be dead.
+def rewrite_links(html: str) -> str:
+    html = re.sub(r'href="ch(\d\d)\.md#trace-(\d+)[^"]*"',
+                  lambda m: f'href="#trace-{int(m.group(2))}"', html)
+    html = re.sub(r'href="(?:\.\./)*chapters/ch(\d\d)\.md#trace-(\d+)[^"]*"',
+                  lambda m: f'href="#trace-{int(m.group(2))}"', html)
+    html = re.sub(r'href="ch(\d\d)\.md"',
+                  lambda m: f'href="#chapter-{int(m.group(1))}"', html)
+    html = re.sub(r'href="(?:\.\./)*chapters/ch(\d\d)\.md"',
+                  lambda m: f'href="#chapter-{int(m.group(1))}"', html)
+    html = re.sub(r'href="(?:\.\./)*(?:chapters/)?appendices\.md#appendix-([a-f])[^"]*"',
+                  lambda m: f'href="#appendix-{m.group(1)}"', html)
+    return html
+
 def slug(s: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
@@ -123,6 +141,7 @@ for part_title, files in PARTS:
             trace_entries.append((int(num), rest.strip(), ta))
             return f'<h3 class="flow" id="{ta}">{SPINE_LABEL} {num}: {rest.strip()}</h3>'
         html = md2html(text)
+        html = rewrite_links(html)
         html = re.sub(rf"<h3>{SPINE_LABEL} (\d+): (.*?)</h3>", trace_sub, html)
         # level badges: [L1] [L2] [L3] anywhere in rendered prose
         html = re.sub(r"\[L([123])\]", r'<span class="level l\1">L\1</span>', html)

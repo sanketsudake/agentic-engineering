@@ -18,16 +18,19 @@ dist/               build output (gitignored)
 1. Read [STYLE.md](STYLE.md) first. It is a contract, not guidance.
 2. Edit the chapter, lab, or exam.
 3. Keep every version-sensitive fact in sync with `notes/research-notes.md`.
-4. Run the gates and rebuild:
+4. Write cross-references as plain text ("Chapter 3", "Trace 9", "Appendix C"), then run
+   `python3 build/linkify.py`. It inserts every link and anchor for you.
+   Never hand-write an anchor — a hand-written slug drifts the moment a heading changes.
+5. Run the gates and rebuild:
 
 ```bash
-make check        # check_book.py (content linter) + check_diagrams.py (size gate)
+make check        # linkify --check + check_book.py (content linter) + check_diagrams.py (size gate)
 make pdf          # full edition
 make pdf-candidate  # answers-stripped edition
 make check-labs   # every lab's solution passes its tests, offline
 ```
 
-## Three things that fail silently
+## Four things that fail silently
 
 - **Caption coupling.** Prose between a ```` ```mermaid ```` fence and its `*Figure N.M — …*`
   line breaks the match: the build exits 0 and raw mermaid lands in the PDF.
@@ -37,6 +40,10 @@ make check-labs   # every lab's solution passes its tests, offline
 - **Lab callouts.** A malformed `> **Lab N — title.**` opener renders as a plain
   blockquote instead of a lab box, and the lab drops out of the Labs index.
   `check_book.py` catches it.
+- **Forward references.** A pointer to a later chapter reads fine to an author who
+  knows the whole book, and stops a first-time reader who does not.
+  `check_book.py` fails on any reference to a later chapter or to a trace that a
+  later chapter carries. Say "later in this book" instead, with no number.
 
 ## Building the PDF
 

@@ -7,12 +7,40 @@ and all exams grade the same way.
 
 ## Audience and voice
 
-- Reader: an engineer at any level, junior through principal, building or operating AI agents.
-- Simple technical English. Short sentences (aim ≤ 20 words). One idea per paragraph. Paragraphs ≤ 4 sentences.
-- Define every piece of jargon at first use, in one clause: "the harness (the runtime that owns the loop, context assembly, and gating)".
-- High signal, low noise: no filler ("It is important to note that…"), no marketing tone, no repetition of what another section already said — cross-reference instead ("see Trace 2").
-- Present tense. Active voice. "The harness appends the tool result" not "The tool result is appended".
-- Never invent facts. Version-sensitive claims (model names, API features, SDK behavior, prices) MUST match `notes/research-notes.md`. Baseline is August 2026.
+Reader: an engineer at any level, junior through principal, who builds or operates AI agents.
+Many readers do not have English as a first language.
+Reading fluency and comprehension come before every other quality in this book.
+
+### Write in Simplified Technical English (ASD-STE100)
+
+The book follows ASD-STE100, the controlled-English standard used for aerospace technical writing.
+These are the rules that apply here:
+
+- **One word, one meaning.** Each term keeps the same meaning everywhere in the book. Appendix B is the dictionary.
+- **One meaning, one word.** Do not use synonyms for variety. If it is a "tool result", it is never a "tool response" or "tool output".
+- **Short sentences.** Procedural sentences (trace steps, instructions): 20 words maximum. Descriptive sentences: 25 words maximum.
+- **Short paragraphs.** 6 sentences maximum. One idea for each paragraph.
+- **One instruction for each sentence.** Do not join two actions with "and" in a trace step.
+- **Active voice.** "The harness appends the tool result", not "The tool result is appended".
+- **Present tense** for how things work. Keep the tense simple.
+- **Keep the articles.** Write "the harness reads the schema", not "harness reads schema".
+- **Keep the relative pronouns.** Write "the result that the tool returned", not "the result the tool returned".
+- **Noun clusters: 3 words maximum.** Break up "context window budget policy" into a phrase with a verb or a preposition.
+- **No idioms, metaphors, jokes, or slang.** "The model gets confused" is not a mechanism; say what happens.
+- **Positive statements.** Avoid double negatives. Write "surface every error", not "do not fail to surface errors".
+- **Lists for sequences.** If the text has more than two steps, make it a numbered list.
+
+Approved-word discipline in practice: prefer the simple verb.
+Use "use" not "utilize", "start" not "initiate", "show" not "demonstrate", "before" not "prior to", "about" not "regarding", "if" not "in the event that".
+
+### Cognitive flow
+
+- **Answer first, detail second.** The first sentence of a section states the outcome. The mechanism follows.
+- **Define a term before you use it.** Definitions come in one clause: "the harness (the runtime that owns the loop, context assembly, and gating)".
+- **Never make the reader jump forward.** See the cross-reference rules below.
+- High signal, low noise: no filler ("It is important to note that…"), no marketing tone, no repetition of what another section said.
+- Never invent facts. Version-sensitive claims (model names, API features, SDK behavior, prices) must match the fact ledger the repository keeps for authors. Baseline is August 2026.
+  Chapters never name that ledger or any other repository document that the PDF does not contain.
 
 ## Levels
 
@@ -211,17 +239,47 @@ Diagrams are optional in Part E; every mermaid rule applies when one appears.
 
 ## Cross-references
 
-- Refer to traces by global number ("Trace 9"), figures by "Figure 4.2", chapters by "Chapter 5", labs by "Lab 8", questions by "Q 4.3".
-- Trace numbers are the permanent addressing scheme: labs and exams reference them ("builds on Trace 9"). Splitting a trace renumbers, and is a reviewed change.
+The reader reads the book in order. A reference must never send them forward.
+
+**Backward references only.** A chapter may point to itself and to every chapter before it.
+It must not point to a later chapter, or to a trace that a later chapter carries.
+When later material is genuinely out of scope, say so without a number and without a link:
+"the policy questions come later in this book". The reader keeps reading.
+
+One exception: Chapter 1 carries a `## How this book is organized` section.
+That roadmap may name later chapters, because a map is not a jump.
+
+**Hyperlink every cross-reference that leaves the current chapter.**
+Plain-number references are for figures and questions only.
+
+| Reference | Form | Example |
+|---|---|---|
+| Chapter | `[Chapter 3](ch03.md)` | link to the chapter file |
+| Trace | `[Trace 9](ch04.md#trace-9-what-happens-when-a-tool-call-executes-end-to-end)` | link to the trace heading |
+| Appendix | `[Appendix C](appendices.md#appendix-c--answer-quality-rubric)` | link to the appendix heading |
+| Figure | `Figure 4.2` | plain text, same chapter only |
+| Question | `Q 4.3` | plain text, same chapter only |
+| Lab | `` `labs/lab08-write-eval/` `` | code span, never a link |
+
+Anchors are the GitHub heading slugs, so the links work when a reader browses the repository.
+`build/build.py` rewrites them to internal anchors when it builds the PDF, so the same links work there.
+Do not hand-write the anchors: run `python3 build/linkify.py` and it inserts them.
+
+Trace numbers are the permanent addressing scheme: labs and exams reference them ("builds on Trace 9").
+Splitting a trace renumbers, and is a reviewed change.
 
 ## Length budgets (hard-ish)
 
-- Ch 1: ~2,000 words · Ch 2: ~3,600 · Ch 3: ~3,200 · Ch 4: ~4,200
-- Ch 5: ~2,400 · Ch 6: ~3,000 · Ch 7: ~3,800 · Ch 8: ~3,000
-- Ch 9: ~2,800 · Ch 10: ~3,200 · Ch 11: ~2,800 · Ch 12: ~3,400
-- Ch 13: ~3,000 · Ch 14: ~2,600 · Appendices: ~4,200
+- Ch 1: ~2,000 words · Ch 2: ~3,950 · Ch 3: ~3,500 · Ch 4: ~4,750
+- Ch 5: ~2,650 · Ch 6: ~3,300 · Ch 7: ~4,150 · Ch 8: ~3,450
+- Ch 9: ~3,200 · Ch 10: ~3,650 · Ch 11: ~3,250 · Ch 12: ~3,900
+- Ch 13: ~3,450 · Ch 14: ~3,200 · Appendices: ~5,150
 - Counting rule: `sed '/^```/,/^```/d' chapters/chNN.md | wc -w` — fenced blocks (diagrams and code) do not count.
 - Over budget → cut noise, not traces. Budgets may be reset to shipped reality plus ~5% headroom if they drift; an unenforceable budget is worse than an honest one.
+- (These budgets were reset in August 2026, after the book moved to Simplified Technical English.
+  That style adds words on purpose: it splits long sentences, keeps every article and relative pronoun,
+  and never compresses a phrase the reader would have to decode. Every chapter grew 4–10%.
+  The old budgets would have forced the dense writing back in, so they were rebased instead.)
 
 ## Code-reading exercises (Chapter 4 only)
 

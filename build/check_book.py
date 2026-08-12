@@ -19,10 +19,11 @@ problems, warnings = [], []
 PART_E = {"ch13.md", "ch14.md"}
 MAX_TRACE, MAX_CHAPTER = 35, 14
 BUDGETS = {  # words, fenced blocks excluded (see STYLE.md)
-    "ch01.md": 2000, "ch02.md": 3600, "ch03.md": 3200, "ch04.md": 4200,
-    "ch05.md": 2400, "ch06.md": 3000, "ch07.md": 3800, "ch08.md": 3000,
-    "ch09.md": 2800, "ch10.md": 3200, "ch11.md": 2800, "ch12.md": 3400,
-    "ch13.md": 3000, "ch14.md": 2600, "appendices.md": 4200,
+    "ch01.md": 2000, "ch02.md": 3950, "ch03.md": 3500, "ch04.md": 4750,
+    "ch05.md": 2650, "ch06.md": 3300, "ch07.md": 4150, "ch08.md": 3450,
+    "ch09.md": 3200, "ch10.md": 3650, "ch11.md": 3250, "ch12.md": 3900,
+    "ch13.md": 3450, "ch14.md": 3200,
+    "appendices.md": 5150,
 }
 TIER_RANGES = {  # (min, max) questions per tier
     "core": {"Tier 1": (3, 4), "Tier 2": (3, 4), "Tier 3": (2, 3)},
@@ -260,6 +261,70 @@ def check_exams():
             warnings.append(f"exams/{lvl}/exam.md: multiple key.md mentions — keep it to the header pointer")
 
 
+from refs import build_map, github_slug, iter_prose  # noqa: E402
+from linkify import linkify_text  # noqa: E402
+
+# Repository documents the PDF does not contain. A chapter that points a reader
+# at one of these sends them somewhere the book cannot follow.
+AUTHOR_ONLY = re.compile(r"\b(notes/|research-notes|worksheet-plan|STYLE\.md|CONTRIBUTING\.md)")
+ROADMAP_HEADING = "## How this book is organized"
+
+
+def check_references(chapter_texts):
+    """Backward-only, linked, and resolvable cross-references."""
+    refs = build_map()
+
+    for fn, text in sorted(chapter_texts.items()):
+        own = int(fn[2:4]) if re.match(r"ch\d\d\.md", fn) else None
+
+        # 1. no pointers at author-only documents
+        for i, line in iter_prose(text):
+            if AUTHOR_ONLY.search(line):
+                problems.append(f"{fn}:{i + 1}: points at a document the PDF does not contain")
+
+        # 2. backward references only (Chapter 1's roadmap section may look ahead)
+        if own is not None:
+            roadmap = set()
+            if ROADMAP_HEADING in text:
+                lines = text.split("\n")
+                start = next(i for i, l in enumerate(lines) if l.startswith(ROADMAP_HEADING))
+                end = next((i for i in range(start + 1, len(lines))
+                            if lines[i].startswith("## ")), len(lines))
+                roadmap = set(range(start, end))
+            for i, line in iter_prose(text):
+                if i in roadmap:
+                    continue
+                for m in re.finditer(r"\bChapter (\d+)\b", line):
+                    if int(m.group(1)) > own:
+                        problems.append(
+                            f"{fn}:{i + 1}: forward reference to Chapter {m.group(1)} "
+                            f"— rewrite it so the reader never jumps ahead")
+                for m in re.finditer(r"\bTrace (\d+)\b", line):
+                    entry = refs["traces"].get(int(m.group(1)))
+                    if entry and int(entry[0][2:4]) > own:
+                        problems.append(
+                            f"{fn}:{i + 1}: forward reference to Trace {m.group(1)} "
+                            f"(lives in {entry[0]}) — rewrite it")
+
+        # 3. every cross-file reference is linked
+        if linkify_text(text, own, refs) != text:
+            problems.append(f"{fn}: un-linked cross-reference — run python3 build/linkify.py")
+
+        # 4. links resolve to a real file and a real anchor
+        for i, line in iter_prose(text):
+            for m in re.finditer(r"\]\((ch\d\d\.md|appendices\.md)(#[^)]*)?\)", line):
+                target, anchor = m.group(1), (m.group(2) or "")[1:]
+                tpath = os.path.join(ROOT, "chapters", target)
+                if not os.path.exists(tpath):
+                    problems.append(f"{fn}:{i + 1}: link to missing file {target}")
+                    continue
+                if anchor:
+                    slugs = {github_slug(h) for h in
+                             re.findall(r"^#{2,3} (.+)$", open(tpath).read(), re.M)}
+                    if anchor not in slugs:
+                        problems.append(f"{fn}:{i + 1}: link anchor #{anchor} not a heading in {target}")
+
+
 def check_appendix_toc():
     p = os.path.join(ROOT, "chapters", "appendices.md")
     if not os.path.exists(p):
@@ -287,6 +352,11 @@ def main():
     check_strip({**chapter_texts, **exam_texts})
     check_exams()
     check_appendix_toc()
+    check_references(chapter_texts)
+    for name, text in exam_texts.items():
+        for i, line in iter_prose(text):
+            if AUTHOR_ONLY.search(line):
+                problems.append(f"{name}:{i + 1}: points at a document the PDF does not contain")
 
     for w in warnings:
         print(f"WARN  {w}")
