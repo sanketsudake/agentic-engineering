@@ -1,0 +1,13 @@
+[project]
+name = "lab04-context-budget"
+version = "0.1.0"
+description = "Lab 4 — keep a long agent session under a token budget"
+requires-python = ">=3.10"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

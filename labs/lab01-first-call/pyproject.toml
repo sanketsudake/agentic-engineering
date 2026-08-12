@@ -1,0 +1,21 @@
+[project]
+name = "lab01-first-call"
+version = "0.1.0"
+description = "Lab 1 — first model call and structured output"
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic",
+    "worksheet-common",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.uv.sources]
+worksheet-common = { path = "../common", editable = true }
+
+[tool.pytest.ini_options]
+addopts = "-m 'not live'"
+markers = ["live: needs a real model API key; deselected by default"]
+testpaths = ["tests"]
+pythonpath = ["."]
