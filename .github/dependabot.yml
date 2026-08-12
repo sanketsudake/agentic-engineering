@@ -1,0 +1,40 @@
+version: 2
+
+updates:
+  # The PDF build workflow pins actions by major tag. Without this, they
+  # silently drift majors behind.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: "Bump"
+
+  # build/build.py deps (markdown, weasyprint). These use floating >=
+  # constraints, so expect mostly security updates rather than version bumps.
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      python-deps:
+        patterns: ["*"]
+    commit-message:
+      prefix: "Bump"
+
+  # Lab projects pin exact framework versions via uv.lock. Grouped weekly so
+  # one PR refreshes all labs; each lab's CI leg proves the bump is safe.
+  - package-ecosystem: "uv"
+    directories:
+      - "labs/*"
+      - "exams/*/practical"
+    schedule:
+      interval: "weekly"
+    groups:
+      lab-deps:
+        patterns: ["*"]
+    commit-message:
+      prefix: "Bump"

@@ -1,0 +1,44 @@
+name: labs
+
+# Runs every lab's tests against the reference solution, offline.
+# No secrets are configured on purpose: this workflow is the enforcement
+# mechanism for the "every lab completes with zero API keys" guarantee.
+
+on:
+  push:
+    branches: [main]
+    paths: ["labs/**", "exams/**"]
+  pull_request:
+    paths: ["labs/**", "exams/**"]
+  workflow_dispatch:
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      dirs: ${{ steps.list.outputs.dirs }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: list
+        run: |
+          dirs=$(ls -d labs/lab*/ exams/*/practical/ 2>/dev/null \
+            | while read -r d; do [ -f "$d/pyproject.toml" ] && echo "${d%/}"; done \
+            | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "dirs=$dirs" >> "$GITHUB_OUTPUT"
+
+  test:
+    needs: discover
+    if: needs.discover.outputs.dirs != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dir: ${{ fromJSON(needs.discover.outputs.dirs) }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
+      - name: Test solution offline
+        working-directory: ${{ matrix.dir }}
+        run: |
+          uv sync --frozen
+          LAB_TARGET=solution uv run pytest -m "not live"

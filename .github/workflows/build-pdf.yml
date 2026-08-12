@@ -1,0 +1,66 @@
+name: build-pdf
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      # Fail fast on content problems before installing heavy deps.
+      - name: Check book (stdlib linter)
+        run: python3 build/check_book.py
+
+      - name: Install system deps (weasyprint, fonts)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libpango-1.0-0 libpangoft2-1.0-0 fonts-dejavu fonts-liberation
+
+      - name: Install build deps
+        run: |
+          pip install -r requirements.txt
+          npm install -g @mermaid-js/mermaid-cli
+
+      - name: Check diagrams (size gate)
+        run: python3 build/check_diagrams.py chapters/*.md
+
+      - name: Build PDF (full edition)
+        run: python3 build/build.py
+
+      - name: Build PDF (candidate edition)
+        run: STRIP_ANSWERS=1 python3 build/build.py
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: agentic-engineering-worksheet
+          path: |
+            dist/agentic-engineering-worksheet.pdf
+            dist/agentic-engineering-worksheet-candidate.pdf
+
+      - name: Attach to release (tags only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" --repo "${GITHUB_REPOSITORY}" \
+            --title "Worksheet ${GITHUB_REF_NAME}" --notes "PDF build for ${GITHUB_REF_NAME}" \
+            dist/agentic-engineering-worksheet.pdf dist/agentic-engineering-worksheet-candidate.pdf || \
+          gh release upload "${GITHUB_REF_NAME}" --repo "${GITHUB_REPOSITORY}" \
+            dist/agentic-engineering-worksheet.pdf dist/agentic-engineering-worksheet-candidate.pdf --clobber
