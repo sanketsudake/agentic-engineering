@@ -18,15 +18,15 @@ Traces link to their chapter as chapters ship; unlinked traces are planned.
 
 **Chapter 2 — Models & the API Surface** (zooms step 3 of Trace 2)
 
-3. What happens when you demand output matching a schema · L1
-4. What happens when the model decides to call a tool · L1
-5. What happens when a response streams · L1
-6. What happens when a prompt cache hits — and misses · L2
+3. [What happens when you demand output matching a schema](chapters/ch02.md#trace-3-what-happens-when-you-demand-output-matching-a-schema) · L1
+4. [What happens when the model decides to call a tool](chapters/ch02.md#trace-4-what-happens-when-the-model-decides-to-call-a-tool) · L1
+5. [What happens when a response streams](chapters/ch02.md#trace-5-what-happens-when-a-response-streams) · L1
+6. [What happens when a prompt cache hits — and misses](chapters/ch02.md#trace-6-what-happens-when-a-prompt-cache-hits--and-misses) · L2
 
 **Chapter 3 — Context Engineering** (zooms steps 2 and 6)
 
-7. What happens when the context for a turn is assembled · L1
-8. What happens when the context window fills · L2
+7. [What happens when the context for a turn is assembled](chapters/ch03.md#trace-7-what-happens-when-the-context-for-a-turn-is-assembled) · L1
+8. [What happens when the context window fills](chapters/ch03.md#trace-8-what-happens-when-the-context-window-fills) · L2
 
 ## Part B — Capabilities
 
@@ -58,9 +58,9 @@ Traces link to their chapter as chapters ship; unlinked traces are planned.
 
 **Chapter 8 — Operating Coding Agents: Workflows** (runs Trace 2 as a managed workflow)
 
-21. What happens when a feature ships spec-first · L2
-22. What happens when work is delegated to a subagent · L2
-23. What happens when a CI agent handles a pull request · L2
+21. [What happens when a feature ships spec-first](chapters/ch08.md#trace-21-what-happens-when-a-feature-ships-spec-first) · L2
+22. [What happens when work is delegated to a subagent](chapters/ch08.md#trace-22-what-happens-when-work-is-delegated-to-a-subagent) · L2
+23. [What happens when a CI agent handles a pull request](chapters/ch08.md#trace-23-what-happens-when-a-ci-agent-handles-a-pull-request) · L2
 
 ## Part D — Systems
 

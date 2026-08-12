@@ -14,8 +14,8 @@ Work in progress. The PDF builds from `chapters/` — see [CONTRIBUTING.md](CONT
 **Part A — Foundations**
 
 - [Chapter 1 — The Agent Loop: Big Picture](chapters/ch01.md)
-- Chapter 2 — Models & the API Surface *(planned)*
-- Chapter 3 — Context Engineering *(planned)*
+- [Chapter 2 — Models & the API Surface](chapters/ch02.md)
+- [Chapter 3 — Context Engineering](chapters/ch03.md)
 
 **Part B — Capabilities**
 
@@ -26,7 +26,7 @@ Work in progress. The PDF builds from `chapters/` — see [CONTRIBUTING.md](CONT
 **Part C — Coding agents**
 
 - [Chapter 7 — Inside a Coding-Agent Harness](chapters/ch07.md)
-- Chapter 8 — Operating Coding Agents: Workflows *(planned)*
+- [Chapter 8 — Operating Coding Agents: Workflows](chapters/ch08.md)
 
 **Part D — Systems**
 
