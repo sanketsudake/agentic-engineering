@@ -32,29 +32,29 @@ Traces link to their chapter as chapters ship; unlinked traces are planned.
 
 **Chapter 4 — Tool Design & MCP** (zooms steps 4–6)
 
-9. What happens when a tool call executes end to end · L1
-10. What happens when a tool call fails · L2
-11. What happens when the agent calls an MCP server · L1
+9. [What happens when a tool call executes end to end](chapters/ch04.md#trace-9-what-happens-when-a-tool-call-executes-end-to-end) · L1
+10. [What happens when a tool call fails](chapters/ch04.md#trace-10-what-happens-when-a-tool-call-fails) · L2
+11. [What happens when the agent calls an MCP server](chapters/ch04.md#trace-11-what-happens-when-the-agent-calls-an-mcp-server) · L1
 
 **Chapter 5 — Memory & State** (zooms steps 2 and 9)
 
-12. What happens when an agent recalls a fact from memory · L2
-13. What happens when a session ends and memory is written · L2
+12. [What happens when an agent recalls a fact from memory](chapters/ch05.md#trace-12-what-happens-when-an-agent-recalls-a-fact-from-memory) · L2
+13. [What happens when a session ends and memory is written](chapters/ch05.md#trace-13-what-happens-when-a-session-ends-and-memory-is-written) · L2
 
 **Chapter 6 — Retrieval & RAG** (zooms steps 2 and 5)
 
-14. What happens when a document becomes searchable · L1
-15. What happens when a RAG query runs · L1
-16. What happens when the agent searches instead · L2
+14. [What happens when a document becomes searchable](chapters/ch06.md#trace-14-what-happens-when-a-document-becomes-searchable) · L1
+15. [What happens when a RAG query runs](chapters/ch06.md#trace-15-what-happens-when-a-rag-query-runs) · L1
+16. [What happens when the agent searches instead](chapters/ch06.md#trace-16-what-happens-when-the-agent-searches-instead) · L2
 
 ## Part C — Coding agents
 
 **Chapter 7 — Inside a Coding-Agent Harness** (zooms steps 1, 4, and 9)
 
-17. What happens when a coding-agent session starts · L1
-18. What happens when the harness gates a dangerous action · L1
-19. What happens when a hook fires · L2
-20. What happens when a skill or slash command is invoked · L2
+17. [What happens when a coding-agent session starts](chapters/ch07.md#trace-17-what-happens-when-a-coding-agent-session-starts) · L1
+18. [What happens when the harness gates a dangerous action](chapters/ch07.md#trace-18-what-happens-when-the-harness-gates-a-dangerous-action) · L1
+19. [What happens when a hook fires](chapters/ch07.md#trace-19-what-happens-when-a-hook-fires) · L2
+20. [What happens when a skill or slash command is invoked](chapters/ch07.md#trace-20-what-happens-when-a-skill-or-slash-command-is-invoked) · L2
 
 **Chapter 8 — Operating Coding Agents: Workflows** (runs Trace 2 as a managed workflow)
 

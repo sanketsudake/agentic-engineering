@@ -19,13 +19,13 @@ Work in progress. The PDF builds from `chapters/` — see [CONTRIBUTING.md](CONT
 
 **Part B — Capabilities**
 
-- Chapter 4 — Tool Design & MCP *(planned)*
-- Chapter 5 — Memory & State *(planned)*
-- Chapter 6 — Retrieval & RAG *(planned)*
+- [Chapter 4 — Tool Design & MCP](chapters/ch04.md)
+- [Chapter 5 — Memory & State](chapters/ch05.md)
+- [Chapter 6 — Retrieval & RAG](chapters/ch06.md)
 
 **Part C — Coding agents**
 
-- Chapter 7 — Inside a Coding-Agent Harness *(planned)*
+- [Chapter 7 — Inside a Coding-Agent Harness](chapters/ch07.md)
 - Chapter 8 — Operating Coding Agents: Workflows *(planned)*
 
 **Part D — Systems**
