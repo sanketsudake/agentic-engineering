@@ -30,15 +30,15 @@ Work in progress. The PDF builds from `chapters/` — see [CONTRIBUTING.md](CONT
 
 **Part D — Systems**
 
-- Chapter 9 — Multi-Agent Orchestration *(planned)*
-- Chapter 10 — Evals *(planned)*
-- Chapter 11 — Safety & Guardrails *(planned)*
-- Chapter 12 — Production Ops, Cost & Latency *(planned)*
+- [Chapter 9 — Multi-Agent Orchestration](chapters/ch09.md)
+- [Chapter 10 — Evals](chapters/ch10.md)
+- [Chapter 11 — Safety & Guardrails](chapters/ch11.md)
+- [Chapter 12 — Production Ops, Cost & Latency](chapters/ch12.md)
 
 **Part E — Judgment**
 
-- Chapter 13 — Architecture Judgment & Org Adoption *(planned)*
-- Chapter 14 — Lineage, Frontier & Capstones *(planned)*
+- [Chapter 13 — Architecture Judgment & Org Adoption](chapters/ch13.md)
+- [Chapter 14 — Lineage, Frontier & Capstones](chapters/ch14.md)
 
 **Reference**
 

@@ -7,7 +7,7 @@ The master trace is **Trace 2** (a user request becomes a finished task, Chapter
 Chapters 2–12 zoom into their segment of it,
 and Part E traces run above it at org scale.
 
-Traces link to their chapter as chapters ship; unlinked traces are planned.
+Every trace links to the chapter that carries it.
 
 ## Part A — Foundations
 
@@ -66,31 +66,31 @@ Traces link to their chapter as chapters ship; unlinked traces are planned.
 
 **Chapter 9 — Multi-Agent Orchestration** (runs many Trace 2s)
 
-24. What happens when an orchestrator fans work out · L2
-25. What happens when one agent hands off to another · L2
-26. What happens when two agents write the same artifact · L3
+24. [What happens when an orchestrator fans work out](chapters/ch09.md#trace-24-what-happens-when-an-orchestrator-fans-work-out) · L2
+25. [What happens when one agent hands off to another](chapters/ch09.md#trace-25-what-happens-when-one-agent-hands-off-to-another) · L2
+26. [What happens when two agents write the same artifact](chapters/ch09.md#trace-26-what-happens-when-two-agents-write-the-same-artifact) · L3
 
 **Chapter 10 — Evals** (measures Trace 2)
 
-27. What happens when an eval suite runs · L2
-28. What happens when an LLM judge grades a transcript · L2
+27. [What happens when an eval suite runs](chapters/ch10.md#trace-27-what-happens-when-an-eval-suite-runs) · L2
+28. [What happens when an LLM judge grades a transcript](chapters/ch10.md#trace-28-what-happens-when-an-llm-judge-grades-a-transcript) · L2
 
 **Chapter 11 — Safety & Guardrails** (gates steps 4–6)
 
-29. What happens when a prompt injection arrives in tool output · L2
-30. What happens when an agent tries to exfiltrate data · L3
+29. [What happens when a prompt injection arrives in tool output](chapters/ch11.md#trace-29-what-happens-when-a-prompt-injection-arrives-in-tool-output) · L2
+30. [What happens when an agent tries to exfiltrate data](chapters/ch11.md#trace-30-what-happens-when-an-agent-tries-to-exfiltrate-data) · L3
 
 **Chapter 12 — Production Ops, Cost & Latency** (operates Trace 2 at scale)
 
-31. What happens when a production request fails over · L2
-32. What happens when a bad session is traced · L2
-33. What happens when the underlying model is upgraded · L3
+31. [What happens when a production request fails over](chapters/ch12.md#trace-31-what-happens-when-a-production-request-fails-over) · L2
+32. [What happens when a bad session is traced](chapters/ch12.md#trace-32-what-happens-when-a-bad-session-is-traced) · L2
+33. [What happens when the underlying model is upgraded](chapters/ch12.md#trace-33-what-happens-when-the-underlying-model-is-upgraded) · L3
 
 ## Part E — Judgment
 
 **Chapter 13 — Architecture Judgment & Org Adoption** (above Trace 2, org scale)
 
-34. What happens when an agent change ships across an organization · L3
-35. What happens when a prompt-injection incident is triaged · L3
+34. [What happens when an agent change ships across an organization](chapters/ch13.md#trace-34-what-happens-when-an-agent-change-ships-across-an-organization) · L3
+35. [What happens when a prompt-injection incident is triaged](chapters/ch13.md#trace-35-what-happens-when-a-prompt-injection-incident-is-triaged) · L3
 
 Chapter 14 carries no traces; it holds the lineage, the frontier bets, and the capstones.

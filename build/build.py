@@ -29,6 +29,8 @@ PARTS = [
     ("Part A — Foundations", ["ch01.md", "ch02.md", "ch03.md"]),
     ("Part B — Capabilities", ["ch04.md", "ch05.md", "ch06.md"]),
     ("Part C — Coding agents", ["ch07.md", "ch08.md"]),
+    ("Part D — Systems", ["ch09.md", "ch10.md", "ch11.md", "ch12.md"]),
+    ("Part E — Judgment", ["ch13.md", "ch14.md"]),
     ("Appendices", ["appendices.md"]),
     ("Assessment", ["../exams/l1/exam.md", "../exams/l2/exam.md", "../exams/l3/exam.md"]),
 ]
