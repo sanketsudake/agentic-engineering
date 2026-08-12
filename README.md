@@ -13,7 +13,7 @@ Work in progress. The PDF builds from `chapters/` — see [CONTRIBUTING.md](CONT
 
 **Part A — Foundations**
 
-- Chapter 1 — The Agent Loop: Big Picture
+- [Chapter 1 — The Agent Loop: Big Picture](chapters/ch01.md)
 - Chapter 2 — Models & the API Surface *(planned)*
 - Chapter 3 — Context Engineering *(planned)*
 

@@ -120,7 +120,7 @@ def check_chapter(path):
 def check_traces(chapter_bodies):
     planned = {}
     for line in open(os.path.join(ROOT, "TRACES.md")).read().split("\n"):
-        m = re.match(r"^(\d+)\. (What happens when .+?)( · L\d.*)?$", line)
+        m = re.match(r"^(\d+)\. \[?(What happens when [^\]·]+?)(?:\]\([^)]*\))?( · L\d.*)?$", line)
         if m:
             planned[int(m.group(1))] = m.group(2).strip()
     if len(planned) != MAX_TRACE:

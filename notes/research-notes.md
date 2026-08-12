@@ -38,7 +38,18 @@ Writing rules:
 
 ## Framework facts
 
-*(To verify and fill: Anthropic SDK, OpenAI Agents SDK, LangGraph — version, concept names, sharp edges. Feeds Appendix E.)*
+*(Partial — full pass in Phase 3. Feeds Appendix E.)*
+
+- **OpenAI Agents SDK (Python):** `Runner.run()` executes the agent loop —
+  calls the LLM, processes tool calls and handoffs until final output, with an
+  enforced `max_turns` limit. Core primitives: agents (instructions + tools),
+  handoffs (task delegation between agents), guardrails (input/output validation).
+  Source: openai/openai-agents-python docs (index.md, running_agents.md, quickstart.md); verified 2026-08-12.
+- **LangGraph:** the loop is an explicit `StateGraph` — you `add_node`/`add_edge`
+  (plus conditional edges) and compile. Checkpointers persist graph state at every
+  superstep; a `thread_id` in the invocation config resumes prior state, so
+  persistence is a graph feature, not a chat feature.
+  Source: langchain-ai/langgraph docs (libs/checkpoint README, graph examples); verified 2026-08-12.
 
 ## Pricing snapshot
 

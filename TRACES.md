@@ -13,8 +13,8 @@ Traces link to their chapter as chapters ship; unlinked traces are planned.
 
 **Chapter 1 — The Agent Loop: Big Picture**
 
-1. What happens when you send one message to a model · L1
-2. What happens when a user request becomes a finished task · L1 · **master trace**
+1. [What happens when you send one message to a model](chapters/ch01.md#trace-1-what-happens-when-you-send-one-message-to-a-model) · L1
+2. [What happens when a user request becomes a finished task](chapters/ch01.md#trace-2-what-happens-when-a-user-request-becomes-a-finished-task) · L1 · **master trace**
 
 **Chapter 2 — Models & the API Surface** (zooms step 3 of Trace 2)
 
