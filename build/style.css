@@ -1,0 +1,94 @@
+/* ---- page setup ---- */
+@page {
+  size: A4;
+  margin: 22mm 18mm 20mm 18mm;
+  @bottom-center { content: counter(page); font: 8.5pt "Liberation Sans"; color: #666; }
+  @top-right { content: string(chapter); font: 8pt "Liberation Sans"; color: #888; }
+}
+@page cover { margin: 0; @bottom-center { content: none; } @top-right { content: none; } }
+@page :first { @top-right { content: none; } }
+
+html { font-size: 10pt; }
+body { font-family: "DejaVu Serif", serif; line-height: 1.5; color: #1a1a1a; margin: 0; }
+
+/* ---- cover ---- */
+.cover { page: cover; height: 297mm; background: #10243e; color: #fff;
+  display: flex; flex-direction: column; justify-content: center; padding: 0 28mm; box-sizing: border-box; }
+.cover .kicker { font: 600 11pt "Liberation Sans"; letter-spacing: 3px; text-transform: uppercase; color: #7eb6ff; margin-bottom: 8mm; }
+.cover h1 { font: 700 30pt "Liberation Sans"; margin: 0 0 6mm 0; line-height: 1.15; }
+.cover .sub { font: 12pt "Liberation Sans"; color: #c9d8ec; line-height: 1.6; max-width: 130mm; }
+.cover .meta { margin-top: 18mm; font: 9.5pt "Liberation Sans"; color: #8fa8c8; }
+.cover .rule { width: 22mm; height: 1.2mm; background: #7eb6ff; margin-bottom: 8mm; }
+
+/* ---- toc ---- */
+.toc-page { page-break-before: always; }
+.toc-h { font: 700 16pt "Liberation Sans"; color: #10243e; margin: 0 0 5mm 0; }
+ul.toc { list-style: none; padding: 0; margin: 0 0 8mm 0; }
+.toc li { margin: 0; }
+.toc a { text-decoration: none; color: #1a1a1a; display: flex; align-items: baseline; }
+.toc .t { order: 1; }
+.toc .pg { order: 2; flex: 1; border-bottom: 1px dotted #bbb; margin: 0 2mm; }
+.toc a::after { content: target-counter(attr(href), page); order: 3; font: 9pt "Liberation Sans"; color: #555; }
+.toc-part { font: 600 10.5pt "Liberation Sans"; margin-top: 3mm !important; }
+.toc-ch { font: 10pt "Liberation Sans"; padding-left: 6mm; line-height: 1.75; }
+.toc-flow { font: 9pt "Liberation Sans"; line-height: 1.7; }
+.toc.flows { column-count: 1; }
+
+/* ---- part pages ---- */
+.part-page { page-break-before: always; display: flex; align-items: center; justify-content: center; height: 240mm; }
+.part-title { font: 700 22pt "Liberation Sans"; color: #10243e; border-top: 1.5mm solid #10243e; padding-top: 6mm; max-width: 120mm; }
+
+/* ---- chapters ---- */
+.chapter { }
+.chapter-title { string-set: chapter content(); page-break-before: always; font: 700 19pt "Liberation Sans";
+  color: #10243e; border-bottom: 0.6mm solid #10243e; padding-bottom: 3mm; margin: 0 0 6mm 0; }
+.chapter-title.appendix { font-size: 16pt; }
+h2 { font: 700 13pt "Liberation Sans"; color: #10243e; margin: 7mm 0 2.5mm 0; page-break-after: avoid; }
+h3 { font: 700 11pt "Liberation Sans"; color: #1a1a1a; margin: 6mm 0 2mm 0; page-break-after: avoid; }
+h3.flow { background: #eef3fa; border-left: 1.6mm solid #2f6db3; padding: 2.2mm 3mm; color: #10243e; }
+p { margin: 0 0 2.8mm 0; }
+li { margin-bottom: 1.2mm; }
+ul, ol { margin: 0 0 3mm 0; padding-left: 6mm; }
+strong { color: #000; }
+hr { border: none; border-top: 0.3mm solid #ccc; margin: 5mm 0; }
+
+/* flow step lists: tighter */
+ol li p { margin-bottom: 1mm; }
+
+/* ---- figures ---- */
+figure.diagram { margin: 4mm 0 5mm 0; text-align: center; page-break-inside: avoid; }
+figure.diagram img { max-width: 100%; max-height: 150mm; }
+figure.diagram figcaption { font: italic 8.5pt "Liberation Sans"; color: #555; margin-top: 1.5mm; }
+
+/* ---- code ---- */
+code { font-family: "DejaVu Sans Mono", monospace; font-size: 8.6pt; background: #f2f4f7; padding: 0.2mm 1mm; border-radius: 1mm; }
+pre { background: #f6f8fa; border: 0.3mm solid #dde3ea; border-radius: 1.5mm; padding: 3mm; overflow: hidden;
+  font-size: 8.2pt; line-height: 1.42; margin: 3mm 0 4mm 0; white-space: pre-wrap; }
+pre code { background: none; padding: 0; font-size: 8.2pt; }
+
+/* ---- tables ---- */
+/* Horizontal hairlines only. A full grid, a dark header block and zebra
+   striping are three layers of ink that carry no data; the eye reads rows
+   fine from whitespace plus one rule under the header. */
+table { border-collapse: collapse; width: 100%; margin: 3mm 0 4mm 0; font: 8.8pt "Liberation Sans"; }
+th { color: #10243e; text-align: left; padding: 1.4mm 2.5mm 1.2mm 0; font-weight: 700;
+     border-bottom: 0.4mm solid #10243e; }
+td { border: none; border-bottom: 0.18mm solid #d8dee6; padding: 1.3mm 2.5mm 1.3mm 0;
+     vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+th:last-child, td:last-child { padding-right: 0; }
+
+/* ---- questions ---- */
+blockquote { margin: 3mm 0; padding: 2mm 4mm; border-left: 1.2mm solid #c8a24a; background: #fbf7ee; }
+
+/* ---- level badges ---- */
+.level { font: 700 7pt "Liberation Sans"; color: #fff; border-radius: 1mm;
+  padding: 0.3mm 1.4mm; vertical-align: 0.4mm; }
+.level.l1 { background: #10b981; }
+.level.l2 { background: #38bdf8; }
+.level.l3 { background: #64748b; }
+
+/* ---- lab callouts ---- */
+aside.lab { margin: 3mm 0 4mm 0; padding: 2.2mm 4mm; border-left: 1.6mm solid #10b981;
+  background: #effaf5; page-break-inside: avoid; }
+aside.lab p { margin: 0; font: 9.2pt "Liberation Sans"; }

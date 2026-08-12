@@ -1,0 +1,9 @@
+{
+  "sequence": {
+    "actorMargin": 20,
+    "width": 95,
+    "messageMargin": 24,
+    "height": 44,
+    "boxMargin": 6
+  }
+}
