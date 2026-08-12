@@ -1,0 +1,8 @@
+{"role": "user", "content": "Add a unit test for the discount() helper."}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t1", "name": "Read", "input": {"path": "src/pricing.py"}}], "usage": {"input_tokens": 400, "output_tokens": 80}}
+{"role": "tool", "tool_call_id": "t1", "content": "def discount(total, pct):\n    return total * (1 - pct)\n"}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t2", "name": "Write", "input": {"path": "tests/test_pricing.py", "content": "from src.pricing import discount\n\ndef test_discount():\n    assert discount(100, 0.1) == 90\n"}}], "usage": {"input_tokens": 500, "output_tokens": 100}}
+{"role": "tool", "tool_call_id": "t2", "content": "tests/test_pricing.py written"}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t3", "name": "Bash", "input": {"command": "pytest -q"}}], "usage": {"input_tokens": 600, "output_tokens": 120}}
+{"role": "tool", "tool_call_id": "t3", "content": "13 passed in 0.58s"}
+{"role": "assistant", "content": "Added test_discount; the full suite of 13 tests passes.", "tool_calls": [], "usage": {"input_tokens": 700, "output_tokens": 140}}

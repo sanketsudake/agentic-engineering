@@ -1,0 +1,4 @@
+{"role": "user", "content": "I need help with a refund on order 4821."}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t1", "name": "handoff", "input": {"to": "billing_specialist", "reason": "refund request"}}], "usage": {"input_tokens": 400, "output_tokens": 80}}
+{"role": "tool", "tool_call_id": "t1", "content": "SPECIALIST_MISMATCH: connected to shipping_specialist instead of billing_specialist"}
+{"role": "assistant", "content": "Shipping specialist here \u2014 I can't process refunds, only tracking questions.", "tool_calls": [], "usage": {"input_tokens": 500, "output_tokens": 100}}

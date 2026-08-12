@@ -1,0 +1,4 @@
+{"role": "user", "content": "My account was locked, I need it unlocked."}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t1", "name": "handoff", "input": {"to": "account_security_specialist", "reason": "account locked"}}], "usage": {"input_tokens": 400, "output_tokens": 80}}
+{"role": "tool", "tool_call_id": "t1", "content": "SPECIALIST_MISMATCH: connected to sales_specialist instead of account_security_specialist"}
+{"role": "assistant", "content": "Sales specialist here \u2014 I handle upgrades, not account locks.", "tool_calls": [], "usage": {"input_tokens": 500, "output_tokens": 100}}

@@ -1,0 +1,6 @@
+{"role": "user", "content": "Write a script that counts lines per file under logs/."}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t1", "name": "Write", "input": {"path": "scripts/count_lines.py", "content": "import sys, pathlib\nfor p in pathlib.Path('logs').glob('*.log'):\n    print(p, sum(1 for _ in open(p)))\n"}}], "usage": {"input_tokens": 400, "output_tokens": 80}}
+{"role": "tool", "tool_call_id": "t1", "content": "scripts/count_lines.py written"}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t2", "name": "Bash", "input": {"command": "python scripts/count_lines.py"}}], "usage": {"input_tokens": 500, "output_tokens": 100}}
+{"role": "tool", "tool_call_id": "t2", "content": "logs/app.log 1203\nlogs/worker.log 44\n"}
+{"role": "assistant", "content": "Wrote scripts/count_lines.py; ran it successfully against logs/.", "tool_calls": [], "usage": {"input_tokens": 600, "output_tokens": 120}}

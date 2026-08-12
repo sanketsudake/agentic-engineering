@@ -20,12 +20,12 @@ LAB_TARGET=solution uv run pytest  # see the reference solution pass
 | 03 | Build the tool loop | L1 | plain Python | ScriptedModel | Ch 1 |
 | 04 | Context truncation & compaction | L2 | plain Python | pure logic, no model | Ch 3 |
 | 05 | Debug a broken agent | L2 | plain Python | ScriptedModel | Ch 4 |
-| 06 | Multi-agent handoffs | L2 | OpenAI Agents SDK | mockllm | Ch 9 *(planned)* |
+| 06 | Multi-agent handoffs | L2 | OpenAI Agents SDK | mockllm | Ch 9 |
 | 07 | Stateful graph agent + checkpointing | L2 | LangGraph | fake chat model | Ch 5 |
-| 08 | Write an eval | L2 | plain Python | ScriptedModel + transcripts | Ch 10 *(planned)* |
+| 08 | Write an eval | L2 | plain Python | ScriptedModel + transcripts | Ch 10 |
 | 09 | Operate a coding agent | L2 | Claude Code | transcripts + config linting | Ch 8 |
-| 10 | Tracing & failure taxonomy | L3 | plain Python | recorded transcripts | Ch 12 *(planned)* |
-| 11 | Guardrails & tool-permission design | L3 | framework-agnostic | adversarial scripts | Ch 11 *(planned)* |
+| 10 | Tracing & failure taxonomy | L3 | plain Python | recorded transcripts | Ch 12 |
+| 11 | Guardrails & tool-permission design | L3 | framework-agnostic | adversarial scripts | Ch 11 |
 | 12 | Capstone: eval-gated release | L3 | your choice | composes labs 03 + 08 | Ch 14 *(planned)* |
 
 `labs/common/` holds `worksheet_common`, the shared offline harness:

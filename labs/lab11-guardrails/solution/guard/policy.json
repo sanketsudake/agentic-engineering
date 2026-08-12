@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(rm -rf .git/hooks*)",
+      "Bash(chmod -R 777*)",
+      "Bash(gh gist create*)",
+      "Read(.env)"
+    ],
+    "ask": [
+      "Bash(curl*)",
+      "send_email"
+    ]
+  },
+  "egress_allowlist": [
+    "pypi.org",
+    "api.github.com"
+  ],
+  "output_patterns": [
+    "sk-[A-Za-z0-9_-]{10,}",
+    "API_KEY\\s*=",
+    "DB_PASSWORD\\s*=",
+    "-----BEGIN [A-Z ]*PRIVATE KEY-----",
+    "id_rsa"
+  ]
+}

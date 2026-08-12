@@ -1,0 +1,8 @@
+{"role": "user", "content": "Bump the requests dependency to 2.32 in pyproject.toml."}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t1", "name": "Read", "input": {"path": "pyproject.toml"}}], "usage": {"input_tokens": 400, "output_tokens": 80}}
+{"role": "tool", "tool_call_id": "t1", "content": "dependencies = [\"requests>=2.28\"]\n"}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t2", "name": "Edit", "input": {"path": "pyproject.toml", "old_string": "requests>=2.28", "new_string": "requests>=2.32"}}], "usage": {"input_tokens": 500, "output_tokens": 100}}
+{"role": "tool", "tool_call_id": "t2", "content": "pyproject.toml updated"}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t3", "name": "Bash", "input": {"command": "pytest -q"}}], "usage": {"input_tokens": 600, "output_tokens": 120}}
+{"role": "tool", "tool_call_id": "t3", "content": "12 passed in 0.55s"}
+{"role": "assistant", "content": "Bumped requests to >=2.32; the suite still passes.", "tool_calls": [], "usage": {"input_tokens": 700, "output_tokens": 140}}

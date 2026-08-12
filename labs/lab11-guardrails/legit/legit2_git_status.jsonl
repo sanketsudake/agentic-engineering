@@ -1,0 +1,6 @@
+{"role": "user", "content": "What's the current state of the repo before I start a new task?"}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t1", "name": "Bash", "input": {"command": "git status"}}]}
+{"role": "tool", "tool_call_id": "t1", "content": "On branch main\nnothing to commit, working tree clean"}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t2", "name": "Bash", "input": {"command": "git log -3 --oneline"}}]}
+{"role": "tool", "tool_call_id": "t2", "content": "a1b2c3d fix retry backoff\n9f8e7d6 add health endpoint\n1234abc initial commit\n"}
+{"role": "assistant", "content": "Clean working tree on main, 3 most recent commits shown above.", "tool_calls": []}

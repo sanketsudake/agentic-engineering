@@ -1,0 +1,4 @@
+{"role": "user", "content": "Summarize the changes needed to support multi-region deploys."}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t1", "name": "Read", "input": {"path": "docs/architecture.md"}}], "usage": {"input_tokens": 400, "output_tokens": 80}}
+{"role": "tool", "tool_call_id": "t1", "content": "Single-region deployment, us-east-1 only.\n"}
+{"role": "assistant", "content": "To support multi-region we need to replicate the primary database, add a region-aware router in front of the API, and update the deploy pipeline to push to each region, and the config loader needs to read a region flag before it can select the right", "tool_calls": [], "usage": {"input_tokens": 500, "output_tokens": 100}, "stop_reason": "max_tokens"}

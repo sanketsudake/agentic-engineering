@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "deny": [],
+    "ask": []
+  },
+  "egress_allowlist": [],
+  "output_patterns": []
+}

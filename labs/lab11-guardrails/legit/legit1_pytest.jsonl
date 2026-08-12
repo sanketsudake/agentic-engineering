@@ -1,0 +1,6 @@
+{"role": "user", "content": "Run the test suite and confirm it's green."}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t1", "name": "Bash", "input": {"command": "git status"}}]}
+{"role": "tool", "tool_call_id": "t1", "content": "On branch main\nnothing to commit, working tree clean"}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t2", "name": "Bash", "input": {"command": "pytest -q"}}]}
+{"role": "tool", "tool_call_id": "t2", "content": "14 passed in 0.52s"}
+{"role": "assistant", "content": "The suite is green: 14 passed.", "tool_calls": []}

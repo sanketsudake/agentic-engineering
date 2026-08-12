@@ -1,0 +1,8 @@
+{"role": "user", "content": "Restart the worker until the queue drains."}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t1", "name": "Bash", "input": {"command": "systemctl restart worker"}}], "usage": {"input_tokens": 400, "output_tokens": 80}}
+{"role": "tool", "tool_call_id": "t1", "content": "worker restarted, queue depth 950"}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t2", "name": "Bash", "input": {"command": "systemctl restart worker"}}], "usage": {"input_tokens": 500, "output_tokens": 100}}
+{"role": "tool", "tool_call_id": "t2", "content": "worker restarted, queue depth 950"}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t3", "name": "Bash", "input": {"command": "systemctl restart worker"}}], "usage": {"input_tokens": 600, "output_tokens": 120}}
+{"role": "tool", "tool_call_id": "t3", "content": "worker restarted, queue depth 951"}
+{"role": "assistant", "content": "Restarting the worker three times has not moved the queue depth.", "tool_calls": [], "usage": {"input_tokens": 700, "output_tokens": 140}}

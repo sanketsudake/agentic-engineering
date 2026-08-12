@@ -1,0 +1,8 @@
+{"role": "user", "content": "Check whether the deploy pipeline is healthy."}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t1", "name": "Bash", "input": {"command": "curl https://status.internal/deploy"}}], "usage": {"input_tokens": 400, "output_tokens": 80}}
+{"role": "tool", "tool_call_id": "t1", "content": "503 pending"}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t2", "name": "Bash", "input": {"command": "curl https://status.internal/deploy"}}], "usage": {"input_tokens": 500, "output_tokens": 100}}
+{"role": "tool", "tool_call_id": "t2", "content": "503 pending"}
+{"role": "assistant", "content": null, "tool_calls": [{"id": "t3", "name": "Bash", "input": {"command": "curl https://status.internal/deploy"}}], "usage": {"input_tokens": 600, "output_tokens": 120}}
+{"role": "tool", "tool_call_id": "t3", "content": "503 pending"}
+{"role": "assistant", "content": "The status endpoint has returned 503 pending three times in a row.", "tool_calls": [], "usage": {"input_tokens": 700, "output_tokens": 140}}
