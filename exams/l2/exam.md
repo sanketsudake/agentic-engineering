@@ -10,29 +10,75 @@ Score yourself against `exams/l2/key.md` after finishing — not before.
 
 ## Section A — Written (60 points)
 
-**E2.A1 (5 pts) — A model response ends with `stop_reason: "tool_use"`. Narrate, step by step and naming the acting component at each step, everything that happens between that response and the start of the next model call?**
+**E2.A1 (5 pts) — Narrate every step between a `tool_use` response and the start of the next model call.**
 
-**E2.A2 (5 pts) — An agent sends the same long system prompt and tool set twice within a minute, and the second request costs a fraction of the first. Explain the mechanism that makes the second request cheaper, and name the usage field that proves it worked?**
+A model response ends with `stop_reason: "tool_use"`.
+Name the acting component at each step.
+Keep the steps in order.
 
-**E2.A3 (10 pts) — A teammate refactors your loop so that each of the model's three parallel tool calls gets its result sent back in its own separate message, "so the model sees results sooner". Predict what happens on the next request, and explain why all three results must return together in one message?**
+**E2.A2 (5 pts) — Explain why the second request costs less, and name the usage field that proves it.**
 
-**E2.A4 (10 pts) — A nightly reconciliation job runs five fixed steps: export, validate, transform, post to the billing system, notify. A team proposes replacing the pipeline with an agent that chooses its own steps. Argue the decision step by step using the cost of variance: where does the model choose, where does code choose, and why?**
+An agent sends the same long system prompt and the same tool set twice within one minute.
+The second request costs a fraction of the first.
 
-**E2.A5 (10 pts) — Your team swaps a strict code grader for an LLM judge, and the suite's pass rate jumps from 62% to 84% overnight with no agent change. Why can you not report the 84%, and what work makes the judge's number admissible?**
+**E2.A3 (10 pts) — Predict what happens on the next request, and explain why all three results must return in one message.**
 
-**E2.A6 (10 pts) — An unattended agent ran a schema migration in production, and the migration was applied twice. Walk your diagnosis: what you read first, the hypotheses that separate a model re-request from a harness retry and the evidence that decides between them, and the fix that removes the whole failure class rather than this one incident?**
+The model emits three parallel tool calls.
+A teammate refactors your loop so that each result returns in its own separate message,
+"so the model sees results sooner".
 
-**E2.A7 (10 pts) — Your agent's eval suite is green on every run, yet this week users report confidently wrong answers. The suite has not changed in six weeks. Walk your diagnosis: what you compare first, and how you decide whether the suite, the graders, or the fleet is lying?**
+**E2.A4 (10 pts) — Decide whether an agent replaces the pipeline, and argue the decision from the cost of variance.**
+
+A nightly reconciliation job runs five fixed steps:
+export, validate, transform, post to the billing system, notify.
+A team proposes to replace the pipeline with an agent that chooses its own steps.
+
+Your answer must:
+
+- argue the decision one step at a time;
+- say where the model chooses;
+- say where code chooses;
+- give the reason in each case.
+
+**E2.A5 (10 pts) — Explain why you cannot report the new pass rate, and name the work that makes the judge's number admissible.**
+
+Your team replaces a strict code grader with an LLM judge.
+Overnight the pass rate of the suite goes from 62% to 84%.
+The agent did not change.
+
+**E2.A6 (10 pts) — Walk your diagnosis of a schema migration that ran twice.**
+
+An unattended agent ran a schema migration in production.
+The migration was applied twice.
+
+Your answer must:
+
+- say what you read first;
+- give the hypotheses that separate a model re-request from a harness retry;
+- name the evidence that decides between them;
+- give the fix that removes the whole failure class, not only this one incident.
+
+**E2.A7 (10 pts) — Walk your diagnosis of an eval suite that stays green while production fails.**
+
+Your agent's eval suite is green on every run.
+This week users report confidently wrong answers.
+The suite has not changed for six weeks.
+
+Your answer must:
+
+- say what you compare first;
+- explain how you decide which one is wrong: the suite, the graders, or the fleet.
 
 ## Section B — Code reading (10 points)
 
-**E2.B1 (10 pts) — The snippet below has three planted bugs. Find each, explain its production impact, and rank the three by severity?**
+**E2.B1 (10 pts) — Find the three planted bugs in the snippet below, explain the production impact of each, and rank the three by severity.**
 
-The loop otherwise follows the Lab 3 pattern.
+The loop follows the Lab 3 pattern in every other respect.
 Exactly three bugs are planted.
 The comments state guaranteed behavior:
-`tools.dispatch` validates input, surfaces failures as `"error: ..."` text,
-never raises, and never returns oversized text — do not report bugs inside it.
+`tools.dispatch` validates its input, returns failures as `"error: ..."` text,
+never raises an exception, and never returns oversized text.
+Do not report bugs inside `tools.dispatch`.
 
 ```python
 import time
@@ -73,10 +119,13 @@ def run_agent(client, tools, user_msg, max_turns=6):
 ## Section C — Practical (30 points)
 
 Open `exams/l2/practical/` and follow its README.
-A vendored tool-loop agent fails 3 of the 10 tasks in the provided eval suite.
-Run the eval, diagnose the failure from the transcripts, fix the agent,
-then add a regression task in `evalsuite/tasks_regression.py`
-that would catch the bug class if it ever returned.
+A vendored tool-loop agent fails 3 of the 10 tasks in the eval suite that the project provides.
+
+1. Run the eval.
+2. Diagnose the failure from the transcripts.
+3. Fix the agent.
+4. Add a regression task in `evalsuite/tasks_regression.py` that catches the bug class if it returns.
+
 Scored by pytest: 10 checks × 3 points. Paste your pytest output into the score sheet.
 
 ## Score sheet
