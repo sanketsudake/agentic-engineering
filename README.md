@@ -1,5 +1,7 @@
 # agentic-engineering
 
+[![Agentic Engineering Worksheet](.github/book-card.png)](https://ssudake.com/books/agentic-engineering/)
+
 **Agentic Engineering Worksheet** —
 a trace-first handbook that skills engineers at every level,
 from first agent loop to org-scale judgment:
@@ -7,8 +9,15 @@ build agents end to end,
 operate coding agents well,
 and prove it against labs and per-level exams.
 
-**[Download the PDF](https://github.com/sanketsudake/agentic-engineering/releases/latest)** —
-two editions: the full book, and a candidate edition with model answers stripped for self-testing.
+[![Latest release](https://img.shields.io/github/v/release/sanketsudake/agentic-engineering)](https://github.com/sanketsudake/agentic-engineering/releases/latest)
+[![PDF downloads](https://img.shields.io/github/downloads/sanketsudake/agentic-engineering/total?label=PDF%20downloads)](https://github.com/sanketsudake/agentic-engineering/releases)
+[![License](https://img.shields.io/github/license/sanketsudake/agentic-engineering)](LICENSE)
+
+**[Read online](https://ssudake.com/books/agentic-engineering/)** ·
+**[Download the PDF](https://github.com/sanketsudake/agentic-engineering/releases/latest/download/agentic-engineering-worksheet.pdf)** ·
+[candidate edition](https://github.com/sanketsudake/agentic-engineering/releases/latest/download/agentic-engineering-worksheet-candidate.pdf) (model answers stripped, for self-testing) ·
+[all releases](https://github.com/sanketsudake/agentic-engineering/releases)
+
 Labs and exam practicals run offline with zero API keys: `cd labs/lab03-tool-loop && uv sync && uv run pytest`.
 
 ## Chapters
@@ -47,6 +56,9 @@ Labs and exam practicals run offline with zero API keys: `cd labs/lab03-tool-loo
 - [The 35 traces](TRACES.md)
 - Labs — hands-on, offline-first exercises in [labs/](labs/)
 - Exams — per-level assessment in [exams/](exams/)
+
+If the worksheet helps you build or operate agents, a ⭐ helps others find it —
+and watching releases gets you new chapters as they land.
 
 ## Contributing
 
