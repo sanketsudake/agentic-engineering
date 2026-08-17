@@ -172,9 +172,14 @@ Multipliers: cache read ~0.1×, cache write 1.25× (5m) / 2× (1h), batch 0.5× 
 - **Cost per solve** — the cost of a session divided by the fraction of sessions that finish.
 - **Elicitation** — a tool call that stops and asks the user for input.
 - **Embedding** — a vector for a text chunk; similar meanings land near each other.
+- **Entity resolution** — merging the names that mean one entity before they enter a graph index.
+- **Ephemeral node** — an agent that exists for one step: a brief in, a report out, nothing kept.
 - **Eval suite** — a scored task set that turns "it seems better" into a number you can defend.
 - **Excessive agency** — capability beyond the task's needs, which an attacker can use.
 - **Grader** — the code, model, or person that scores an eval attempt.
+- **Graph engineering** — a 2026 name with two meanings: wiring agents into nodes and edges, and graph retrieval. Ask which one the writer means.
+- **Graph retrieval** — storing facts as triples and querying the relations, instead of ranking text by similarity.
+- **Guard metric** — a second metric that a shortcut on the target metric damages; it makes the shortcut visible.
 - **Guardrail** — a classifier on what enters or leaves a run; a filter, never a boundary.
 - **Handoff** — one agent transfers the conversation to another; control moves with it.
 - **Harness** — the runtime that owns the loop, context assembly, and gating.
@@ -183,6 +188,7 @@ Multipliers: cache read ~0.1×, cache write 1.25× (5m) / 2× (1h), batch 0.5× 
 - **Idempotent** — safe to run twice; the property that decides whether a tool may be retried.
 - **Lethal trifecta** — private data, untrusted content, and a channel that sends data out, in one session.
 - **LLM judge** — a model that scores transcripts against a rubric; it needs calibration itself.
+- **Loop engineering** — a 2026 name for designing the agent loop, its checks, and its stop conditions instead of writing single prompts.
 - **MCP** — Model Context Protocol; the open standard that puts tools outside the agent's process.
 - **Memory** — anything the harness saves across sessions and injects again later.
 - **Orchestrator** — the agent that divides the work, briefs the workers, and merges their reports.
@@ -193,6 +199,8 @@ Multipliers: cache read ~0.1×, cache write 1.25× (5m) / 2× (1h), batch 0.5× 
 - **Recall@k** — of the chunks the search should find, the fraction that appears in the top k.
 - **Regression gate** — a score threshold a change must pass before it ships.
 - **Reranker** — a stronger scorer that puts search candidates in a better order.
+- **Resident node** — an agent that owns a domain across many runs and keeps that domain's context.
+- **Role structure** — which agent holds which domain, tools, and permissions; it changes by deploy.
 - **Sandbox** — a limit on what an approved process can touch, whoever approved it.
 - **Session state** — the harness's record of one run; complete, and it ends with the session.
 - **Skill** — instructions the harness loads only when the task needs them.
@@ -206,7 +214,10 @@ Multipliers: cache read ~0.1×, cache write 1.25× (5m) / 2× (1h), batch 0.5× 
 - **Token** — the model's unit of text; a piece of a word, a few characters long.
 - **Tool** — a schema the model reads, plus the code you run for it.
 - **Transcript** — the complete record of a session; the primary evidence when you debug.
+- **Triple** — a subject, a relation, and an object; the unit a graph index stores.
 - **TTFT** — time to first token; grows with the input the cache misses.
+- **Verifier** — a node that tries to break a result, in a fresh context, against written criteria.
+- **Work structure** — the task shape of one run; the orchestrator may reshape it while the run continues.
 - **Workflow** — a fixed pipeline that may call models; the code chooses the next step.
 - **Worktree** — a separate git checkout, so parallel agents write files without conflicts.
 
@@ -401,6 +412,8 @@ when a link fails, search the title on the named site.
 
 - "ReAct: Synergizing Reasoning and Acting in Language Models" (Yao et al.) — the paper that named the reason-act loop every agent still runs.
 - Anthropic, "Building Effective Agents" — the essay that fixed the agents-vs-workflows vocabulary this book uses.
+- Anthropic on its multi-agent research system (search: "how we built our multi-agent research system") — the orchestrator-worker pattern of [Chapter 9](ch09.md), with the provider's own cost figures: a large token multiple over one chat, and token use explaining most of the performance difference. Read it before you defend a fan-out.
+- Microsoft's GraphRAG project (github.com/microsoft/graphrag) — the entity-graph pipeline and the local-versus-global query split of [Chapter 6](ch06.md).
 - Anthropic's essay on context engineering (search: "effective context engineering for AI agents") — the provider's own statement of the discipline in [Chapter 3](ch03.md).
 - Anthropic's essay on tool writing (search: "writing effective tools for agents") — the provider-side companion to [Chapter 4](ch04.md).
 - Simon Willison's "lethal trifecta" writing (simonwillison.net) — the widely circulated security framing behind [Chapter 11](ch11.md); his continuing series on prompt injection is the best record in the field.
