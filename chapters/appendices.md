@@ -34,8 +34,13 @@ For example: fifty tool calls at 2,000 tokens each add 100K tokens to every late
 | Minimum cacheable prefix | model-dependent, 512–4,096 tokens; below it the cache does nothing and gives no error |
 | Breakpoints | max 4; the prefix must match; render order is tools, then system, then messages |
 
-Four changes break the cache and give no error ([Trace 6](ch02.md#trace-6-what-happens-when-a-prompt-cache-hits--and-misses)).
-They are a timestamp in the system prompt, a serialization that does not sort its keys, a tool-set change, and a model switch.
+Four changes break the cache and give no error ([Trace 6](ch02.md#trace-6-what-happens-when-a-prompt-cache-hits--and-misses)):
+
+- A timestamp in the system prompt.
+- A serialization that does not sort its keys.
+- A tool-set change.
+- A model switch.
+
 Verify with `usage.cache_read_input_tokens`: a zero across repeats means one of the four.
 
 ### Tool-schema quality checklist
@@ -85,9 +90,11 @@ This table is that multiplication. It is the strongest argument in the book for 
 | 80% | 33% | 11% | 1% | 0% |
 
 Read the 95% row. A step that works nineteen times in twenty finishes a twenty-step task about a third of the time.
-Two levers move that number, and only two.
-Raise the reliability of each step: better tool schemas, surfaced errors, a verification step.
-Or use fewer steps: a shorter loop, a smaller task, code instead of a model where the path is already known.
+Two levers move that number, and only two:
+
+- Raise the reliability of each step: better tool schemas, surfaced errors, a verification step.
+- Use fewer steps: a shorter loop, a smaller task, code instead of a model where the path is already known.
+
 A better prompt moves the first lever a little. Removing ten steps moves the second one a lot.
 
 ### Model selection
@@ -434,10 +441,12 @@ The layers are stable. The projects in the last column are not.
 **Dated August 2026.** Check the licence and the latest release on the project's own repository before you commit to it.
 Treat the names as a starting shortlist, not a recommendation.
 
-**How to choose inside a layer.** Three questions settle most decisions.
-Does the layer earn its place at all, or can an existing system do the job?
-Does the licence permit what you plan to build (MIT and Apache-2.0 are safe for commercial work; AGPL and SSPL carry obligations when you host the software as a service)?
-Does the project have enough users that your error message is already answered somewhere?
+**How to choose inside a layer.** Three questions settle most decisions:
+
+- Does the layer earn its place at all, or can an existing system do the job?
+- Does the licence permit what you plan to build (MIT and Apache-2.0 are safe for commercial work; AGPL and SSPL carry obligations when you host the software as a service)?
+- Does the project have enough users that your error message is already answered somewhere?
+
 Adoption beats features. A weaker project with ten times the users costs less of your time.
 
 ### The model layer
