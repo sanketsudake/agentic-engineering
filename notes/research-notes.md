@@ -135,6 +135,8 @@ Multipliers that matter for cost math (Appendix A): cache read ~0.1×, cache wri
 
 OpenAI wire facts used by lab01's twin: chat.completions structured output rides `response_format={"type": "json_schema", "json_schema": {name, schema, strict}}`; `max_completion_tokens` is the current token cap (`max_tokens` is deprecated for newer models); the SDK's `base_url` must end in `/v1`. No OpenAI model id is pinned anywhere in the repo by design — the live test reads `OPENAI_LIVE_MODEL` from the environment (verified against openai-python 3.x request serialization via mockllm, 2026-09-01).
 
+Concept provenance for the 2026-09 additions (spec terminal states/evidence/rollback; verifier caps and cross-family checking; control-plane credential isolation; hook-vs-review economics; harness overhead as a measured line; efficiency vs intelligence frontier; the reviewer-plateau stall; verification as the throughput ceiling): distilled from the author's reading notes on the mid-2026 practitioner literature — Cole Murray's software-factory essay (OpenInspect), the Azure Architecture Center's agent-orchestration patterns, Databricks' "Managing AI Coding Costs at Scale", Matt Pocock's harness payload-trimming guide, Dan Shapiro's L0–L5 automation levels, Geoffrey Litt's "Understanding is the new bottleneck", and the Extensible Software capability-security essay. Mechanisms only are carried into chapters; company names and unverified figures stay out of the book.
+
 ## Sources
 
 *(Each fact above lists its source and verified date inline.)*
