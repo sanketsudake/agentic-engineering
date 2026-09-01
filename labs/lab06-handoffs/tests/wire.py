@@ -1,4 +1,4 @@
-"""OpenAI chat.completions wire-shape helpers, plus SDK<->mock wiring, for Lab 6.
+"""SDK<->mock wiring for Lab 6.
 
 The OpenAI Agents SDK defaults to OpenAI's Responses API
 (`POST /v1/responses`, a different wire shape than chat.completions).
@@ -10,88 +10,25 @@ Verified empirically (see the lab's build notes / README): calling
 `agents.set_default_openai_api("chat_completions")` switches the SDK's
 default OpenAI client onto chat.completions with zero other changes —
 `Agent`, `Runner.run_sync`, and handoffs all work unmodified against
-MockLLM once that one line is set. That is the choice this lab makes,
-and the only reason this file exists instead of importing response
-builders from `worksheet_common` directly: chat.completions payloads are
-lab-specific wire shapes, not something the shared harness needs to own.
+MockLLM once that one line is set. That is the choice this lab makes.
+
+The chat.completions response builders (`openai_text_response`,
+`openai_tool_call_response`) live in `worksheet_common.mockllm` next to
+their Anthropic-shaped siblings; they are re-exported here so the lab's
+tests keep one import point for all wire concerns.
 """
 from __future__ import annotations
 
-import json
 from contextlib import contextmanager
 
 from agents import set_default_openai_api, set_default_openai_client, set_tracing_disabled
 from openai import AsyncOpenAI
 
-from worksheet_common.mockllm import MockLLM
-
-
-def openai_text_response(
-    text: str,
-    *,
-    id: str = "chatcmpl-mock",
-    model: str = "gpt-mock",
-) -> dict:
-    """Build a minimally-valid `chat.completions` response with a text answer.
-
-    This is a final turn: no tool calls, `finish_reason: "stop"`. The Agents
-    SDK reads `choices[0].message.content` as the agent's final output.
-    """
-    return {
-        "id": id,
-        "object": "chat.completion",
-        "created": 0,
-        "model": model,
-        "choices": [
-            {
-                "index": 0,
-                "message": {"role": "assistant", "content": text},
-                "finish_reason": "stop",
-            }
-        ],
-        "usage": {"prompt_tokens": 10, "completion_tokens": 10, "total_tokens": 20},
-    }
-
-
-def openai_tool_call_response(
-    fn_name: str,
-    args: dict,
-    *,
-    call_id: str = "call_mock",
-    id: str = "chatcmpl-mock",
-    model: str = "gpt-mock",
-) -> dict:
-    """Build a `chat.completions` response that calls one function/tool.
-
-    `fn_name` is the tool name the model chose to call — for a handoff, that
-    is the SDK-generated transfer tool (`agents.Handoff.default_tool_name`,
-    e.g. `"transfer_to_refunds"`). `finish_reason: "tool_calls"` is what
-    tells the SDK to dispatch instead of treating `content` as final output.
-    """
-    return {
-        "id": id,
-        "object": "chat.completion",
-        "created": 0,
-        "model": model,
-        "choices": [
-            {
-                "index": 0,
-                "message": {
-                    "role": "assistant",
-                    "content": None,
-                    "tool_calls": [
-                        {
-                            "id": call_id,
-                            "type": "function",
-                            "function": {"name": fn_name, "arguments": json.dumps(args)},
-                        }
-                    ],
-                },
-                "finish_reason": "tool_calls",
-            }
-        ],
-        "usage": {"prompt_tokens": 10, "completion_tokens": 10, "total_tokens": 20},
-    }
+from worksheet_common.mockllm import (  # noqa: F401 (re-exported for tests)
+    MockLLM,
+    openai_text_response,
+    openai_tool_call_response,
+)
 
 
 @contextmanager
