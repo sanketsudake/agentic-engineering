@@ -7,8 +7,11 @@ For labs whose framework insists on an HTTP provider client: point the SDK's
 straight to `anthropic.Anthropic(base_url=...)`, which appends "/v1/messages"
 itself. Every request is recorded in `self.requests` (path + parsed JSON
 body) so tests can assert on exactly what a client sent, not just what it
-got back. `anthropic_text_response()` and `anthropic_tool_use_response()`
-build minimally-valid response bodies for the scripted `turns` list.
+got back. `anthropic_text_response()` / `anthropic_tool_use_response()` and
+`openai_text_response()` / `openai_tool_call_response()` build
+minimally-valid response bodies for the scripted `turns` list, one pair per
+wire shape. For the OpenAI SDK pass `base_url=mock.base_url + "/v1"` — that
+SDK appends "/chat/completions" itself.
 """
 from __future__ import annotations
 
@@ -79,6 +82,73 @@ def anthropic_tool_use_response(
         "stop_reason": "tool_use",
         "stop_sequence": None,
         "usage": {"input_tokens": input_tokens, "output_tokens": output_tokens},
+    }
+
+
+def openai_text_response(
+    text: str,
+    *,
+    id: str = "chatcmpl-mock",
+    model: str = "gpt-mock",
+) -> dict:
+    """Build a minimally-valid `chat.completions` response with a text answer.
+
+    This is a final turn: no tool calls, `finish_reason: "stop"`. Clients
+    read `choices[0].message.content` as the answer text.
+    """
+    return {
+        "id": id,
+        "object": "chat.completion",
+        "created": 0,
+        "model": model,
+        "choices": [
+            {
+                "index": 0,
+                "message": {"role": "assistant", "content": text},
+                "finish_reason": "stop",
+            }
+        ],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 10, "total_tokens": 20},
+    }
+
+
+def openai_tool_call_response(
+    fn_name: str,
+    args: dict,
+    *,
+    call_id: str = "call_mock",
+    id: str = "chatcmpl-mock",
+    model: str = "gpt-mock",
+) -> dict:
+    """Build a `chat.completions` response that calls one function/tool.
+
+    `fn_name` is the tool name the model chose to call. `finish_reason:
+    "tool_calls"` is what tells a client to dispatch the call instead of
+    treating `content` as final output.
+    """
+    return {
+        "id": id,
+        "object": "chat.completion",
+        "created": 0,
+        "model": model,
+        "choices": [
+            {
+                "index": 0,
+                "message": {
+                    "role": "assistant",
+                    "content": None,
+                    "tool_calls": [
+                        {
+                            "id": call_id,
+                            "type": "function",
+                            "function": {"name": fn_name, "arguments": json.dumps(args)},
+                        }
+                    ],
+                },
+                "finish_reason": "tool_calls",
+            }
+        ],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 10, "total_tokens": 20},
     }
 
 
