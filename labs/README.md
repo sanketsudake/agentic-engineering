@@ -2,7 +2,9 @@
 
 Hands-on labs, one standalone uv project each.
 Every lab completes **offline with zero API keys**;
-live-model runs are optional extras behind the `live` pytest marker.
+live-model runs are optional extras behind the `live` pytest marker,
+and they accept either provider — Anthropic or OpenAI
+(or any OpenAI-compatible endpoint via `OPENAI_BASE_URL`: Ollama, vLLM, OpenRouter).
 
 Workflow:
 
@@ -15,7 +17,7 @@ LAB_TARGET=solution uv run pytest  # see the reference solution pass
 
 | Lab | Title | Level | Stack | Offline mechanism | Chapter |
 |---|---|---|---|---|---|
-| 01 | First model call + structured output | L1 | anthropic SDK | mockllm | Ch 2 |
+| 01 | First model call + structured output | L1 | anthropic SDK + openai twin | mockllm | Ch 2 |
 | 02 | Define and dispatch tools | L1 | plain Python | ScriptedModel | Ch 4 |
 | 03 | Build the tool loop | L1 | plain Python | ScriptedModel | Ch 1 |
 | 04 | Context truncation & compaction | L2 | plain Python | pure logic, no model | Ch 3 |

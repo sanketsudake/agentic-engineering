@@ -5,6 +5,7 @@ description = "Lab 1 — first model call and structured output"
 requires-python = ">=3.10"
 dependencies = [
     "anthropic",
+    "openai",
     "worksheet-common",
 ]
 

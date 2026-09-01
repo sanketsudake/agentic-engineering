@@ -10,3 +10,9 @@ TARGET = os.environ.get("LAB_TARGET", "starter")
 def calls():
     """The module under test: starter by default, solution in CI."""
     return importlib.import_module(f"{TARGET}.client.calls")
+
+
+@pytest.fixture(scope="session")
+def openai_calls():
+    """The OpenAI twin under test: starter by default, solution in CI."""
+    return importlib.import_module(f"{TARGET}.client.openai_calls")

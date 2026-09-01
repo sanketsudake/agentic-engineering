@@ -211,11 +211,11 @@ and collects a Labs index; a malformed opener silently renders as a plain quote
 
 - Directory: `labs/labNN-slug/` with `README.md`, `pyproject.toml` + committed `uv.lock`, `starter/`, `solution/`, `tests/`.
 - The same tests run against starter or solution: `LAB_TARGET=starter` (default) or `solution`, wired in `tests/conftest.py`.
-- **Offline by default, zero API keys.** Model access always goes through injection (a `Model` protocol / `ScriptedModel`) or a `base_url` pointed at `worksheet_common.mockllm` — never a hardcoded provider client.
+- **Offline by default, zero API keys.** Model access always goes through injection (a `Model` protocol / `ScriptedModel`) or a `base_url` pointed at `worksheet_common.mockllm` — never a hardcoded provider client. The mock serves both wire shapes (`/v1/messages` and `/v1/chat/completions`) with a response-builder pair for each; live extras may target either provider and must skip cleanly when that provider's key is unset.
 - Live tests are optional, marked `@pytest.mark.live`, and deselected by default (`addopts = "-m 'not live'"`).
 - README states: goal, level tag, stack, time estimate, what "done" means, offline and live commands.
 - Dependencies pinned via the lockfile. Shared helpers come from `labs/common` (`worksheet_common`) as an editable path dependency.
-- Chapter code and lab code default to plain Python + the Anthropic SDK ("no-framework first"). A framework (OpenAI Agents SDK, LangGraph) appears only in the lab where it earns its keep.
+- Chapter code and lab code default to plain Python + the Anthropic SDK ("no-framework first"). A framework (OpenAI Agents SDK, LangGraph) appears only in the lab where it earns its keep. Lab 1 additionally carries an OpenAI wire twin of its calls, so the wire-shape delta is taught once and the live extras work with either provider.
 
 ## Exam format (strict)
 

@@ -133,6 +133,8 @@ Source: Anthropic pricing (via the claude-api skill bundle, cache dated 2026-06-
 
 Multipliers that matter for cost math (Appendix A): cache read ~0.1×, cache write 1.25× (5m TTL) / 2× (1h TTL), batch 0.5×.
 
+OpenAI wire facts used by lab01's twin: chat.completions structured output rides `response_format={"type": "json_schema", "json_schema": {name, schema, strict}}`; `max_completion_tokens` is the current token cap (`max_tokens` is deprecated for newer models); the SDK's `base_url` must end in `/v1`. No OpenAI model id is pinned anywhere in the repo by design — the live test reads `OPENAI_LIVE_MODEL` from the environment (verified against openai-python 3.x request serialization via mockllm, 2026-09-01).
+
 ## Sources
 
 *(Each fact above lists its source and verified date inline.)*
