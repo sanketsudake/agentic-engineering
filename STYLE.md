@@ -281,7 +281,7 @@ Splitting a trace renumbers, and is a reviewed change.
 
 - Ch 1: ~2,000 words · Ch 2: ~3,950 · Ch 3: ~3,500 · Ch 4: ~4,750
 - Ch 5: ~2,650 · Ch 6: ~3,300 · Ch 7: ~4,150 · Ch 8: ~3,450
-- Ch 9: ~3,200 · Ch 10: ~3,650 · Ch 11: ~3,250 · Ch 12: ~3,900
+- Ch 9: ~3,750 · Ch 10: ~3,650 · Ch 11: ~3,250 · Ch 12: ~3,900
 - Ch 13: ~3,450 · Ch 14: ~3,200 · Appendices: ~6,150
 - Counting rule: `sed '/^```/,/^```/d' chapters/chNN.md | wc -w` — fenced blocks (diagrams and code) do not count.
 - Over budget → cut noise, not traces. Budgets may be reset to shipped reality plus ~5% headroom if they drift; an unenforceable budget is worse than an honest one.
