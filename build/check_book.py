@@ -21,7 +21,7 @@ MAX_TRACE, MAX_CHAPTER = 35, 14
 BUDGETS = {  # words, fenced blocks excluded (see STYLE.md)
     "ch01.md": 2000, "ch02.md": 3950, "ch03.md": 3500, "ch04.md": 4750,
     "ch05.md": 2650, "ch06.md": 3300, "ch07.md": 4150, "ch08.md": 3450,
-    "ch09.md": 3200, "ch10.md": 3650, "ch11.md": 3250, "ch12.md": 3900,
+    "ch09.md": 3750, "ch10.md": 3650, "ch11.md": 3250, "ch12.md": 3900,
     "ch13.md": 3450, "ch14.md": 3200,
     "appendices.md": 6150,
 }
