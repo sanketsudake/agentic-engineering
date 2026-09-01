@@ -31,7 +31,7 @@ TIER_RANGES = {  # (min, max) questions per tier
 }
 
 LEVEL_TAG_RE = re.compile(r"\[L[123]\]")
-LEVEL_OK_RE = re.compile(r"(^Level emphasis:|^> .*\*\*Lab \d+|^#{1,3} .*\(\d+ points?\)|^#{1,3} Section)")
+LEVEL_OK_RE = re.compile(r"(^> .*\*\*Lab \d+|^#{1,3} .*\(\d+ points?\)|^#{1,3} Section)")
 Q_RE = re.compile(r"^\*\*Q (\d+)\.(\d+) — .+[?.]\*\*")
 TRACE_RE = re.compile(r"^### Trace (\d+): (What happens when .+)$")
 FIG_DEF_RE = re.compile(r"^\*Figure (\d+)\.(\d+) — ")

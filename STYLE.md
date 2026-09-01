@@ -29,6 +29,7 @@ These are the rules that apply here:
 - **No idioms, metaphors, jokes, or slang.** "The model gets confused" is not a mechanism; say what happens.
 - **Positive statements.** Avoid double negatives. Write "surface every error", not "do not fail to surface errors".
 - **Lists for sequences.** If the text has more than two steps, make it a numbered list.
+- **Lists for parallel items.** If a paragraph enumerates two or more parallel items — shapes, kinds, options, defenses — keep the lead-in sentence as prose and put each item on its own bullet with a bold lead term: `- **Star:** an orchestrator in the center; workers talk only to it.` Use a table instead when the items share the same attributes (columns).
 
 Approved-word discipline in practice: prefer the simple verb.
 Use "use" not "utilize", "start" not "initiate", "show" not "demonstrate", "before" not "prior to", "about" not "regarding", "if" not "in the event that".
@@ -54,7 +55,7 @@ The book uses one level scheme everywhere:
 
 Rules:
 
-- Tag syntax `[L1]`, `[L2]`, `[L3]` is allowed in exactly three places: the level line at the end of "Why this chapter", lab callouts, and exam section headings.
+- Tag syntax `[L1]`, `[L2]`, `[L3]` is allowed in exactly two places: lab callouts and exam section headings.
 - Question tiers carry the levels; individual questions are never tagged. The mapping (Tier 1 → L1, Tier 2–3 → L2, Tier 4 → L3) is stated once, in Appendix C.
 - An architect-only section gets a heading suffix: `### Context isolation across subagents (L3)`. That is the whole inline-tag surface — no per-paragraph badges.
 
@@ -67,7 +68,7 @@ Rules:
 
 ## Chapter shape (Chapters 1–12, in this order)
 
-1. **Opening ("Why this chapter")** — 3–6 sentences: what a strong engineer must hold in their head, and the one mental model. End with a level line: `Level emphasis: L1–L2; the (L3) sections are optional on first read.`
+1. **Opening ("Why this chapter")** — 3–6 sentences: what a strong engineer must hold in their head, and the one mental model.
 2. **Concepts** — the minimum background needed to follow the traces. Keep short; teach details inside the traces. Ends with the mandatory `### In other stacks` box (below).
 3. **Traces** — the heart of the chapter (format below).
 4. **Questions** — tiered Q&A (format below).
@@ -84,7 +85,15 @@ Contents, in order:
 1. One-sentence setup ("You ask the agent to fix a failing test.").
 2. **Numbered steps.** Each step starts with the acting component in bold: `1. **Harness** assembles the system prompt …`. One actor-action per step. 6–15 steps. If a step hides depth that matters, add an indented sub-bullet, max one per step.
 3. **A mermaid diagram** in a fenced ` ```mermaid ` block, immediately after the steps, followed by an italic caption line: `*Figure N.M — one line saying what to notice.*` (N = chapter, M = running count within chapter).
-4. **Where this can fail** — 3–6 bullets: `- **Symptom:** … **Cause:** … **Where to look:** …`. "Where to look" means: the transcript, the tool results, the trace spans, the token counts.
+4. **Where this can fail** — 3–6 symptom bullets. Each bullet carries the symptom, then two indented sub-bullets (4 spaces — the PDF build flattens 2-space indents):
+
+   ```markdown
+   - **Symptom:** the loop never ends.
+       - **Cause:** the harness has no turn limit, and the model continues to call tools.
+       - **Where to look:** the turn count in the transcript.
+   ```
+
+   "Where to look" means: the transcript, the tool results, the trace spans, the token counts.
 
 The master trace is Trace 2 (user request → finished task, Chapter 1).
 Chapters 2–12 zoom into their segment of it and say so in the opening ("This chapter zooms into steps 4–6 of Trace 2").
