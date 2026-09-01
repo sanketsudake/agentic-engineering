@@ -3,13 +3,13 @@
 **Goal:** make one real `client.messages.create()` call, then a second call
 that forces the response into a JSON shape you can parse without guessing.
 
-**Level:** L1 · **Stack:** `anthropic` SDK · **Time:** ~30 min
+**Level:** L1 · **Stack:** `anthropic` SDK (+ an `openai` twin) · **Time:** ~30 min
 
 **Offline mode (default, no keys):**
 
 ```bash
 uv sync
-uv run pytest                      # 7 red tests are your task list
+uv run pytest                      # 13 red tests are your task list
 ```
 
 **Reference check:**
@@ -32,6 +32,11 @@ LAB_TARGET=solution uv run pytest  # the reference implementation passing
    `extra_body`, parse the result, and raise `ValueError` naming whichever
    required key is missing.
 5. Make the 7 tests in `tests/test_lab.py` pass.
+6. Open `starter/client/openai_calls.py` and repeat the same three
+   functions in the OpenAI wire shape (`POST /v1/chat/completions`), until
+   the 6 tests in `tests/test_lab_openai.py` pass. Watch what changes
+   between the two providers (field names, where the schema goes) and what
+   does not (one request, one response, a schema on the wire).
 
 **Done means:** `uv run pytest` is fully green against `starter/`.
 
@@ -45,13 +50,19 @@ returned, because the two can disagree even when your code "looks right."
 
 ## Live mode (optional)
 
-`tests/test_live.py` runs `ask()` against the real API instead of the mock —
-same function under test, `anthropic.Anthropic()` with no `base_url`
-override. It is marked `@pytest.mark.live`, deselected by default
-(`addopts = "-m 'not live'"` in `pyproject.toml`), and additionally skipped
-outright when `ANTHROPIC_API_KEY` is unset, so `uv sync && uv run pytest`
-never needs a key or touches the network. Run it explicitly with a real key:
+`tests/test_live.py` runs `ask()` against a real API instead of the mock —
+same functions under test, real clients with no `base_url` override. The
+tests are marked `@pytest.mark.live`, deselected by default
+(`addopts = "-m 'not live'"` in `pyproject.toml`), and each one is skipped
+outright when its provider's key is unset, so `uv sync && uv run pytest`
+never needs a key or touches the network. Run them explicitly with a real
+key — either provider works:
 
 ```bash
 ANTHROPIC_API_KEY=sk-... uv run pytest -m live
+OPENAI_API_KEY=sk-... OPENAI_LIVE_MODEL=<model-id> uv run pytest -m live
 ```
+
+Both SDKs honor their base-url env vars (`ANTHROPIC_BASE_URL`,
+`OPENAI_BASE_URL`), so any OpenAI-compatible endpoint — Ollama, vLLM,
+OpenRouter — can serve the OpenAI live check.
